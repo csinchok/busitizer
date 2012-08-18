@@ -91,12 +91,6 @@ SECRET_KEY = '%vjmya4)rc5&amp;*%ee%x#)3p&amp;=#tori(a1)42)j4(cq6+bj#x(=!'
 
 AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
 
-AUTHENTICATION_BACKENDS = (
-    'django_facebook.auth_backends.FacebookBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
 #########################################
 #
@@ -105,6 +99,23 @@ FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 #########################################
 
 ACCOUNT_ACTIVATION_DAYS=7
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'userena.backends.UserenaAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+FACEBOOK_REGISTRATION_BACKEND = 'django_facebook.registration_backends.UserenaBackend'
+
+USERENA_ACTIVATION_REQUIRED = False
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
+LOGIN_URL = '/accounts/signin/'
+LOGOUT_URL = '/accounts/signout/'
+ANONYMOUS_USER_ID = 1
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
@@ -122,7 +133,7 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django_facebook.context_processors.facebook',
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
+    # 'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
@@ -136,7 +147,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -164,12 +175,13 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     
-    'debug_toolbar',
+    # 'debug_toolbar',
     'gunicorn',
     'south',
     'compressor',
     'djcelery',
-    'registration',
+    'userena',
+    'guardian',
     'django_facebook',
     
     'busitizer.core',
