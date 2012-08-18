@@ -4,6 +4,8 @@ import random
 
 from django.conf import settings
 
+from busitizer.core.models import Photo
+
 try:
     from cv2 import cv
     FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
@@ -78,7 +80,7 @@ def _face_valid(face, eyes):
     return True
 
 @celery.task
-def busitize(image_path, tags=None, ignore=None, busey_count=5):
+def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_count=5):
     """
     This task determines if an image is 'bustizable', and if so, busitizes it,
     returning the path of the busitized image. The algorithm is pretty strict,
@@ -156,6 +158,7 @@ def busitize(image_path, tags=None, ignore=None, busey_count=5):
     
     busitized_path = "%s_busitized%s" % os.path.splitext(image_path)
     original.save(busitized_path)
-        
-    return busitized_path
+    
+    photo = Photo.objects.create(user=user, original=image_path, busitized=busitized_path, fb_id=fb_id)
+    return photo
     
