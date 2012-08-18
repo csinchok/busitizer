@@ -19,8 +19,9 @@ def virtualenv():
             yield
 
 def deploy():
-    rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git'])
+    rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git', 'busitizer/webroot/static'])
     with virtualenv():
         if not files.exists('.env'):
             run('virtualenv .env')
         run('pip install -r requirements.txt')
+        run('python manage.py collectstatic --noinput')
