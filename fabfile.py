@@ -25,7 +25,7 @@ def generate_reports():
         run('pylint --rcfile=.pylintrc --output-format=html busitizer > %s/webroot/pylint.html' % env.projectroot)
 
 def deploy():
-    rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git', '.coverage', 'busitizer/webroot/static'])
+    rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git', '.coverage', 'test_images', 'busitizer/webroot/static'])
     with virtualenv():
         if not files.exists('.env'):
             run('virtualenv .env')
