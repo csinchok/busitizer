@@ -1,0 +1,8 @@
+# Basic Settings
+#
+fontName         = "Menlo"
+fontSize         = 12
+
+# Extra files to include
+#
+myExtraIncludes = ".tm_properties,.gitignore"
