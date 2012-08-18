@@ -14,3 +14,7 @@ With or without those steps, you can get startd with this:
 	> pip install -r requirements.txt
 	> python manage.py syncdb
 	> python mange.py runserver
+	
+Coverage reports are here: http://busitizer.com/coverage/index.html
+
+Pylint reports are here: http://busitizer.com/pylint.html
