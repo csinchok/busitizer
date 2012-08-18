@@ -9,3 +9,7 @@ class Photo(models.Model):
     tweet_id = models.BigIntegerField(null=True, blank=True)
     source = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
+    
+    
+class FacebookInfo(models.Model):
+    pass

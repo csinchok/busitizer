@@ -4,3 +4,4 @@
 webroot/static
 test_images/*
 *.db
+secrets.py
