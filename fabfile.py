@@ -25,3 +25,4 @@ def deploy():
             run('virtualenv .env')
         run('pip install -r requirements.txt')
         run('python manage.py collectstatic --noinput')
+        run('supervisorctl reload')
