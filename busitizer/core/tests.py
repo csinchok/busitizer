@@ -12,9 +12,7 @@ from busitizer.core.tasks import busitize
 
 class TestBusitizerTask(TestCase):
         
-    def test_basic_addition(self):
+    def test_basic(self):
         test_images = [os.path.join(settings.TEST_IMAGES, filename) for filename in os.listdir(settings.TEST_IMAGES)]
         for image_path in test_images:
             response = busitize.delay(image_path)
-            print(response.result)
-        

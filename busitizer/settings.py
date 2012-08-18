@@ -189,6 +189,7 @@ import djcelery
 djcelery.setup_loader()
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ALWAYS_EAGER = True
+TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
