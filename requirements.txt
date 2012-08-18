@@ -13,7 +13,10 @@ django-celery==3.0.6
 django-compressor==1.2
 django-debug-toolbar==0.9.4
 django-facebook==4.0.9
+django-guardian==1.0.4
 django-registration==0.8
+django-userena==1.1.2
+easy-thumbnails==1.0.3
 gunicorn==0.14.6
 ipython==0.13
 kombu==2.4.0
