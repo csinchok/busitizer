@@ -1,6 +1,11 @@
-For now, this is just a placeholder for our Django Dash repo.
+==Busitizer==
 
-Setup:
+If you want to run EVERYTHING locally, you'll want to do these, but the compilation will take a while:
+
+    > brew install rabbitmq
+	> brew install opencv
+	
+With or without those steps, you can get startd with this:
 
     > git clone git@github.com:csinchok/busitizer.git
 	> cd busitizer
