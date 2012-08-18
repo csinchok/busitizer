@@ -3,14 +3,14 @@ import celery
 import random
 try:
     from cv2 import cv
+    FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
+    EYE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_eye.xml"))
 except:
     print("You don't have OpenCV, so you won't be able to busitize :-(")
 from PIL import Image
 
 from django.conf import settings
 
-FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
-EYE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_eye.xml"))
 BUSEYS = [Image.open(os.path.join(settings.BUSEYS, filename)) 
                 for filename in os.listdir(settings.BUSEYS)]
 
