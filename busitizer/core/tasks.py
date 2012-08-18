@@ -1,6 +1,9 @@
 import os
 import celery
 import random
+import requests
+from PIL import Image
+from StringIO import StringIO
 
 from django.conf import settings
 
@@ -11,7 +14,9 @@ try:
     FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
     EYE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_eye.xml"))
 except ImportError:
+    cv = None
     print("You don't have OpenCV, so you won't be able to busitize :-(")
+    
 from PIL import Image
 
 
@@ -78,6 +83,18 @@ def _face_valid(face, eyes):
     if (not eyes[0].overlaps_y(eyes[1])) and (not eyes[1].overlaps_y(eyes[0])):
         return False
     return True
+    
+@celery.task
+def download_image(photo):
+    r = requests.get(photo['source'])
+    i = Image.open(StringIO(r.content))
+    image_path = os.path.join(settings.SITE_ROOT, 'images/' + photo['id'] + '.jpg')
+    i.save(image_path, "JPEG")
+    
+    print image_path
+    
+    return image_path
+    
 
 @celery.task
 def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_count=5):
@@ -92,6 +109,14 @@ def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_co
       ignore - The [x,y] location of a face that we need to avoid busitizing.
       busey_count - How much Busey can you handle?
     """
+    
+    if cv is None:
+        original = Image.open(image_path)
+        busitized_path = "%s_busitized%s" % os.path.splitext(image_path)
+        original.save(busitized_path)
+    
+        photo = Photo.objects.create(user=user, original=image_path, busitized=busitized_path, fb_id=fb_id)
+        return photo
     
     cv_image = cv.LoadImage(image_path, 0)
     

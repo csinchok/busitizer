@@ -227,3 +227,5 @@ INTERNAL_IPS = ('127.0.0.1',)
 TEST_IMAGES = os.path.join(SITE_ROOT, 'test_images')
 BUSEYS = os.path.join(SITE_ROOT, 'buseys')
 HAAR_CASCADES = os.path.join(SITE_ROOT, 'haarcascades')
+
+BUSEY_COUNT = 1
