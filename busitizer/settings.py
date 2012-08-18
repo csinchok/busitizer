@@ -85,7 +85,7 @@ SECRET_KEY = '%vjmya4)rc5&amp;*%ee%x#)3p&amp;=#tori(a1)42)j4(cq6+bj#x(=!'
 
 #########################################
 #
-# Auth Stuff
+# Facebook Stuff
 #
 #########################################
 
@@ -95,6 +95,26 @@ AUTHENTICATION_BACKENDS = (
     'django_facebook.auth_backends.FacebookBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
+
+#########################################
+#
+# Registration Stuff
+#
+#########################################
+
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_HOST='localhost'
+EMAIL_PORT=1023
+EMAIL_HOST_USER='username'
+EMAIL_HOST_PASSWORD='password'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'busitizer@gmail.com'
+EMAIL_HOST_PASSWORD = 'busitize'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -134,11 +154,13 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SITE_ROOT, "busitizer/templates"),
 )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -151,6 +173,7 @@ INSTALLED_APPS = (
     'south',
     'compressor',
     'djcelery',
+    'registration',
     'django_facebook',
     
     'busitizer.core',

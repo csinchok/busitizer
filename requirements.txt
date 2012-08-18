@@ -12,6 +12,8 @@ django-appconf==0.5
 django-celery==3.0.6
 django-compressor==1.2
 django-debug-toolbar==0.9.4
+django-facebook==4.0.9
+django-registration==0.8
 gunicorn==0.14.6
 ipython==0.13
 kombu==2.4.0
@@ -21,7 +23,6 @@ numpy==1.6.2
 pycrypto==2.6
 pylint==0.25.2
 python-dateutil==1.5
+readline==6.2.2
 ssh==1.7.14
 wsgiref==0.1.2
-## The following requirements were added by pip --freeze:
-django-facebook==4.0.9
