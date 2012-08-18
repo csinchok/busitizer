@@ -20,9 +20,10 @@ def virtualenv():
 
 def generate_reports():
     with virtualenv():
-        run('coverage run manage.py test core')
+        run('coverage run manage.py test core --noinput')
         run('coverage html --include="busitizer/*" --directory=%s/webroot/coverage' % env.projectroot)
-        run('pylint --rcfile=.pylintrc --output-format=html busitizer > %s/webroot/pylint.html' % env.projectroot)
+        with settings(warn_only=True):
+            run('pylint --rcfile=.pylintrc busitizer > %s/webroot/pylint.html' % env.projectroot)
 
 def deploy():
     rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git', '.coverage', 'test_images', 'busitizer/webroot/static'])
