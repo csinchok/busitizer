@@ -1,4 +1,69 @@
-{% extends 'base.html' %}
+{% extends "base_ours.html" %}
 {% block body %}
-    <h1>WELCOME TO BUSI-TEC INDUSTRIES!<h1>
+
+<section class="sub welcome" id="screen-1">
+	<div class="inner"><h1>Welcome</h1>
+	<p>The Busitizer transforms your photos into blah blah lorem ipsum and so forth.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula vehicula ligula vel laoreet. Nunc id ipsum lectus. Cras id est ut velit iaculis tincidunt quis ut libero. Maecenas imperdiet neque in neque convallis eget laoreet turpis vulputate. Ut dui nulla, dictum ut tempor ac, eleifend eu nisl. Etiam justo leo, lacinia vitae vestibulum ac, congue eu nisl. Donec magna elit, aliquam ut sagittis non, consectetur quis velit. Integer ac sem ut purus tristique mollis. Curabitur interdum viverra metus et convallis. </p>
+	<div class="proceed"><a class="button" href="#screen-2">Get started &raquo;</a></div></div>
+</section>
+
+<section class="sub connect" id="screen-2">
+	<div class="inner"><h1>Connect to Facebook</h1>
+	<p>Put Facebook login button here</p>
+	<p><em>Why do you require this information?</em> The Busitizer uses your Facebook photos.</p>
+	<div class="proceed"><a class="button" href="#screen-3">Log in &raquo;</a></div></div>
+</section>
+
+<section class="sub select-profile" id="screen-3">
+	
+	<div class="inner">
+		
+		<h1>Select a profile</h1>
+	
+		<div class="settings">
+	
+			<div class="level">
+		
+				<h1>Set Busey level</h2>
+
+				<div id="busey-level"></div>
+
+			</div>
+
+			<div class="mood">
+	
+				<h1>Set mood</h1>
+
+				<div id="busey-mood"></div>
+		
+			</div>
+
+		</div>
+
+		<div class="proceed"><a class="button" href="#screen-4">Busitize me &raquo;</a></div>
+	
+	</div>
+	
+</section>
+
+<section class="sub in-progress" id="screen-4">
+	<div class="inner"><h1>Busitizing in progress</h1>
+	<img src="{{ STATIC_URL }}img/busitizing.gif" alt="Busitizing...">
+	<div class="proceed"><a class="button" href="#screen-5">See creation &raquo;</a></div></div>
+</section>
+
+<section class="sub finished" id="screen-5">
+	<div class="busitized"><img src="http://www.placekitten.com/600/300" alt="Busitized Photo"></div>
+	<ul class="cf">
+		<li><a href="#">Download full image (42kb)</a></li>
+		<li><a href="#">Share on Facebook</a></li>
+		<li><a href="#">Share on Twitter</a></li>
+		<li><a href="#">Share via email</a></li>
+	</ul>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula vehicula ligula vel laoreet. Nunc id ipsum lectus. Cras id est ut velit iaculis tincidunt quis ut libero. Maecenas imperdiet neque in neque convallis eget laoreet turpis vulputate. Ut dui nulla, dictum ut tempor ac, eleifend eu nisl. Etiam justo leo, lacinia vitae vestibulum ac, congue eu nisl. Donec magna elit, aliquam ut sagittis non, consectetur quis velit. Integer ac sem ut purus tristique mollis. Curabitur interdum viverra metus et convallis. </p>
+	
+	<div class="proceed"><a class="button" href="#screen-1">Busitize another profile?</a></div></div>
+</section>
+
 {% endblock %}
