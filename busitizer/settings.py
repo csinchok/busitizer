@@ -105,10 +105,6 @@ FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 #########################################
 
 ACCOUNT_ACTIVATION_DAYS=7
-EMAIL_HOST='localhost'
-EMAIL_PORT=1023
-EMAIL_HOST_USER='username'
-EMAIL_HOST_PASSWORD='password'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
