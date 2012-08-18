@@ -99,7 +99,7 @@ def busitize(image_path, tags=[], ignore=[], busey_count=5):
         face = Feature(face_frame)
         
         # If the face should be ignored, let's bail now.
-        if face.contains_point(ignore):
+        if face.contains_point(ignore[0], ignore[1]):
             continue
         
         face_valid = False
