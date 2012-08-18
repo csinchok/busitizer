@@ -76,7 +76,7 @@ def _face_valid(face, eyes):
     return True
 
 @celery.task
-def busitize(image_path, tags=[], ignore=[], busey_count=5):
+def busitize(image_path, tags=None, ignore=None, busey_count=5):
     """
     This task determines if an image is 'bustizable', and if so, busitizes it,
     returning the path of the busitized image. The algorithm is pretty strict,
@@ -99,17 +99,18 @@ def busitize(image_path, tags=[], ignore=[], busey_count=5):
         face = Feature(face_frame)
         
         # If the face should be ignored, let's bail now.
-        if face.contains_point(ignore[0], ignore[1]):
+        if ignore and face.contains_point(ignore[0], ignore[1]):
             continue
         
-        face_valid = False
-        for x,y in tags:
-            if face.contains_point(x,y):
-                # If we found a face, and there's a tag there, it must be valid.
-                face_valid = True
-                break
-        if face_valid:
-            faces.append(face)
+        if tags:
+            face_valid = False
+            for x,y in tags:
+                if face.contains_point(x,y):
+                    # If we found a face, and there's a tag there, it must be valid.
+                    face_valid = True
+                    break
+            if face_valid:
+                faces.append(face)
 
         """
         If the face hasn't been validated by facebook tags, we'll check for eyes in
