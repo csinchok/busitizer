@@ -5,3 +5,4 @@ webroot/static
 test_images/*
 *.db
 .coverage
+secrets.py

@@ -23,3 +23,5 @@ pylint==0.25.2
 python-dateutil==1.5
 ssh==1.7.14
 wsgiref==0.1.2
+## The following requirements were added by pip --freeze:
+django-facebook==4.0.9

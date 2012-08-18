@@ -1,3 +1,5 @@
+from secrets import *
+
 import os
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
@@ -81,11 +83,35 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '%vjmya4)rc5&amp;*%ee%x#)3p&amp;=#tori(a1)42)j4(cq6+bj#x(=!'
 
+#########################################
+#
+# Auth Stuff
+#
+#########################################
+
+AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+
+AUTHENTICATION_BACKENDS = (
+    'django_facebook.auth_backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django_facebook.context_processors.facebook',
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -125,8 +151,9 @@ INSTALLED_APPS = (
     'south',
     'compressor',
     'djcelery',
+    'django_facebook',
     
-    'busitizer.core'
+    'busitizer.core',
 )
 
 # A sample logging configuration. The only tangible logging
