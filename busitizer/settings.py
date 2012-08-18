@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'south',
     'compressor',
+    'djcelery',
     
     'busitizer.core'
 )
@@ -157,4 +158,13 @@ LOGGING = {
     }
 }
 
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_ALWAYS_EAGER = True
+
 INTERNAL_IPS = ('127.0.0.1',)
+
+TEST_IMAGES = os.path.join(SITE_ROOT, 'test_images')
+BUSEYS = os.path.join(SITE_ROOT, 'buseys')
+HAAR_CASCADES = os.path.join(SITE_ROOT, 'haarcascades')

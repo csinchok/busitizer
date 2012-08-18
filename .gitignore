@@ -2,3 +2,5 @@
 .DS_Store
 .env
 webroot/static
+test_images/*
+*.db
