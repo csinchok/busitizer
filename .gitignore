@@ -1,3 +1,4 @@
-*.py[co]
+*.py[cod]
 .DS_Store
 .env
+webroot/static
