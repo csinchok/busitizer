@@ -11,7 +11,7 @@ h1,h2,h3{font-family:'Enriqueta';}
 .cf{zoom:1;}
 #page-wrapper{background:url("../img/bg.jpg") no-repeat fixed center top;width:100%;min-height:100%;position:absolute;}
 #container{overflow-x:hidden;margin:0 auto;margin-top:30px;}
-.container{width:640px;}
+.container{width:960px;}
 #header header,#content,.section{padding:0;margin:0;list-style:none;}
 #header{background:rgba(0,0,0,0.6);height:auto;width:100%;z-index:100;top:0;border-bottom:3px solid #000;border-top:1px solid #000;}
 #header h1{text-shadow:#000;text-shadow:1px 1px 2px #000000;filter:dropshadow(color=#000000,offx=1,offy=1);font-family:'Carter One';text-transform:uppercase;font-size:36px;padding:15px 0 10px 0;line-height:25px;margin:0 auto;padding:15px 0;color:#fff;}
@@ -38,15 +38,15 @@ h1,h2,h3{font-family:'Enriqueta';}
 .settings .levels li .image{margin-bottom:10px;background-image:url("../img/moods.png");background-repeat:no-repeat;height:68px;width:50px;display:block;}
 .settings .triangle{width:0;height:0;border-color:rgba(255,255,255,0);border-right:40px solid;border-top:40px solid transparent;border-bottom:0 solid transparent;-moz-transform:scale(10,1);-webkit-transform:scale(10,1);margin:0 auto 1em;}
 .finished{margin-bottom:40px;}
-.finished .share{padding-left:0;font-size: 12px; font-weight:bold}
-.finished .share li{float:left;display:inline-block;margin-right:20px;}
+.finished .share{padding-left:0;font-size: 12px; font-weight:bold; width: 300px; float: right; }
+.finished .share li{float:left;display:inline-block;width:50%;}
 .finished .share li:last-child { margin-right:0;}
 .finished .share li a span { padding-right: 7px; background-image: url("../img/share.png");background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block;}
 .finished .share li.download a span {background-position: 0 -32px;}
 .finished .share li.facebook a span {background-position: 0 -16px;}
 .finished .share li.twitter a span {background-position: 0 0;}
-.finished .share li.email a span {background-position: 0 -48px;}
-.finished .busitized{max-height:400px;}
+.finished .share li.delete a span {background-position: 0 -48px;}
+.finished .busitized{float: left; display: block; }
 .finished .busitized img{width:100%;}
 .proceed{display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
