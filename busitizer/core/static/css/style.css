@@ -1,10 +1,10 @@
 body{background:#dbbd91;overflow-x:hidden;color:#666;font-size:14px;line-height:24px;margin:0 auto;padding:0;font-family:'Open Sans';}
-body p{margin-bottom:2em;}
+body p{margin-bottom:1.25em;}
 a{text-decoration:none;color:#fff}
 a:visited{text-decoration:none;color:#fff}
 a:hover{text-decoration:underline;}
 h1{font-size:24px;font-weight:normal;}
-h1,h2,h3{font-family:'Enriqueta';}
+h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 .hidden{float:left;text-indent:-9999em;_display:block;margin:0;padding:0;/*safari bugfix:*/height:0;}
 .cf:before,.cf:after{content:"";display:table;}
 .cf:after{clear:both;}
@@ -19,13 +19,16 @@ h1,h2,h3{font-family:'Enriqueta';}
 #header h1 a:hover { text-decoration: none; }
 #header #nav { float: right; }
 #header #nav ul { margin: 0; padding: 0; }
-#header #nav ul li { display: inline-block; float: left; margin-left: 15px; font-size: 12px; text-transform: uppercase; }
+#header #nav ul li { display: inline-block; float: left; margin-left: 20px; font-size: 12px; text-transform: uppercase; }
 #header #nav ul li a { line-height:36px;display: block;font-weight: 700; }
 #content{overflow:hidden;position:relative;z-index:50;}
 #content .section{position:relative;}
 #content .section .sub{position:relative;float:left;height:100%;background:rgba(0,0,0,0.8);color:#fff;}
 #content .section .sub .inner{padding:20px;}
-.welcome .busey{float:right;margin:0 0 10px 10px;}
+.welcome { font-size: 18px; line-height: 30px; }
+.welcome strong { text-transform:uppercase; }
+.welcome .tagline { margin-top: 0;}
+.welcome .busey{float:right;margin:0 0 20px 20px;}
 .in-progress {text-align:center;}
 .in-progress h1{margin-top:10px;}
 .in-progress img{margin:10px 20px 20px;}
@@ -61,7 +64,7 @@ h1,h2,h3{font-family:'Enriqueta';}
 .finished .share li.busitize a span {background-position: 0 -64px;}
 .finished .busitized{float: left; display: block; width:600px;background:rgba(0,0,0,0.2); padding:10px 0;}
 .finished .busitized img{margin: 0 auto;display: block;}
-.proceed{display:block;padding-top:1em;text-align:right;clear:both;}
+.proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
 
 #screen-3 .proceed {display: none;}

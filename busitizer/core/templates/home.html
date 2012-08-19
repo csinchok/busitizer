@@ -6,22 +6,22 @@
 
 		<img class="busey" src="{{ STATIC_URL }}img/buseyface.png" alt="Gary Busey, of course." align="right" />
 		
-		<h1>Welcome</h1>
+		<h1 class="hidden">Welcome</h1>
 		
-		<p><strong>The Busitizer</strong> applies star of stage and 
+		<p class="tagline"><strong>The Busitizer</strong> applies star of stage and 
 			screen Gary Busey to your very own Facebook photos. </p>
 		
 		<p>Connect your Facebook profile, let <strong>The Busitizer</strong> 
 			scan your photos and discover which memory of your life 
 			best deserves a little more Gary Busey.</p>
+			
+		<p>
+				{% if not user.is_anonymous %}
+					<a class="button" href="#screen-2">Let's get started &raquo;</a>
+				{% else %}
+					<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
+				{% endif %}</p>
 
-		<div class="proceed">
-			{% if not user.is_anonymous %}
-				<a class="button" href="#screen-2">Let's get started &raquo;</a>
-			{% else %}
-				<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
-			{% endif %}
-		</div>
 	
 	</div>
 </section>
