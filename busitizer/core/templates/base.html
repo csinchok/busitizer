@@ -65,29 +65,7 @@
 		</div>
 	</div>	
 </div>
-<script type="text/javascript">
-    FB.init({appId: "279859382115909", status: true, cookie: true});
-	function share(picture) {
-	    // calling the API ...
-	    var obj = {
-	      method: 'feed',
-	      link: 'https://developers.facebook.com/docs/reference/dialogs/',
-	      picture: picture,
-	      name: 'Gary Busey',
-	      caption: 'Get a little Busey in your life',
-	      description: 'TODO'
-	    };
-
-	    FB.ui(obj, function(){});
-	}
-	
-	$(function(){
-	    $(".sharefacebook").click(function(){
-	    	var url = $(this).attr('data-uri');
-			share(url);
-	    });
-	});
-</script>
+<script type="text/javascript"> FB.init({appId: "279859382115909", status: true, cookie: true}); </script>
 </body>
 </html>
 	
