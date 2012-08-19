@@ -32,13 +32,17 @@ $(function() {
 	}
 );
 
-function poll_url(url) {
+function poll_url(url, timeout) {
 	$.get(url, function(data) {
-		if(data.completed) {
-			$('#screen-4 .inner').html(data.html);
-			$('#content').stop().scrollTo('#screen-4', 400);
+		if(timeout <= 0) {
+			alert("I guess you're just not cool enough to get busitized.");
 		} else {
-			setTimeout(function() {poll_url(url);}, 1000);
+			if(data.completed) {
+				$('#screen-4 .inner').html(data.html);
+				$('#content').stop().scrollTo('#screen-4', 400);
+			} else {
+				setTimeout(function() {poll_url(url, timeout - 1);}, 1000);
+			}
 		}
 	});
 }
@@ -47,7 +51,7 @@ function busitize() {
 	$.get('/grab_photos.json', function(data) {
 		if(data.success) {
 			var url = '/poll_completion/' + data.task_id + '.json';
-			poll_url(url);
+			poll_url(url, 30);
 		} else {
 			alert(data.message);
 		}
