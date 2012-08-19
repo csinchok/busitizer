@@ -22,7 +22,7 @@ except ImportError:
 from PIL import Image
 
 @celery.task
-def get_photos(user, token=None):
+def get_photos(user, token=None, busey_count=4):
     if token is None:
         token = user.social_auth.get(provider='facebook').tokens['access_token']
     graph = facebook.GraphAPI(token)
@@ -30,7 +30,7 @@ def get_photos(user, token=None):
     photos = photos_stream['data']
     random.shuffle(photos)
     for photo in photos:
-        result = busitize_url(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'])
+        result = busitize_url(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'], busey_count=busey_count)
         if result:
             return result
     return None

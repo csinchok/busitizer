@@ -9,6 +9,10 @@ h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 .cf:before,.cf:after{content:"";display:table;}
 .cf:after{clear:both;}
 .cf{zoom:1;}
+blockquote { font-size: 16px; margin-bottom: 20px;}
+blockquote p { margin-top: 0; background:rgba(0,0,0,0.2); padding: 10px; }
+blockquote .credit { background: transparent; padding: 0; font-size: 12px; text-align: right; }
+blockquote .credit a { text-decoration: underline; }
 #page-wrapper{background:url("../img/bg.jpg") no-repeat fixed center top;width:100%;min-height:100%;position:absolute;}
 .container{width:960px;margin: 0 auto;}
 #container{overflow-x:hidden;margin:0 auto;margin-top:30px;}
@@ -23,7 +27,7 @@ h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 #header #nav ul li a { line-height:36px;display: block;font-weight: 700; }
 #content{overflow:hidden;position:relative;z-index:50;}
 #content .section{position:relative;}
-#content .section .sub{position:relative;float:left;height:100%;background:rgba(0,0,0,0.8);color:#fff;}
+#content .section .sub{position:relative;float:left;height:100%;background:rgba(0,0,0,0.8);color:#fff;margin-bottom:40px;}
 #content .section .sub .inner{padding:20px;}
 .welcome { font-size: 18px; line-height: 30px; }
 .welcome strong { text-transform:uppercase; }
@@ -47,7 +51,6 @@ h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 .settings .levels span{display:block;}
 .settings .levels li .image{margin-bottom:10px;background-image:url("../img/moods.png");background-repeat:no-repeat;height:68px;width:50px;display:block;}
 .settings .triangle{width:0;height:0;border-color:rgba(255,255,255,0);border-right:40px solid;border-top:48px solid transparent;border-bottom:0 solid transparent;-moz-transform:scale(10,1);-webkit-transform:scale(10,1);margin:20px auto 1em;}
-.finished{margin-bottom:40px;}
 .finished .tools {padding-left:0;font-size: 12px; width: 300px; float: right; }
 .finished .tools h1 { font-size: 18px;}
 .finished .permalink { margin-bottom: 20px; }
@@ -66,5 +69,9 @@ h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 .finished .busitized img{margin: 0 auto;display: block;}
 .proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
+
+#screen-2 { display:none; }
+#screen-3 { display:none; }
+#screen-4 { display:none; }
 
 #screen-3 .proceed {display: none;}
