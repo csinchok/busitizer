@@ -13,6 +13,7 @@
                 </div>
             {% endfor %}
             {% if is_paginated %}
+                {% block pagination %}
                 <div class="pagination">
                     <span class="page-links">
                         {% if page_obj.has_previous %}
@@ -26,6 +27,7 @@
                         {% endif %}
                     </span>
                 </div>
+                {% endblock %}
             {% endif %}
         {% else %}
         <p>No Buseys!</p>

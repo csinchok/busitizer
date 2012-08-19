@@ -76,4 +76,6 @@ class PhotoListView(ListView):
     
 class MyPhotoListView(PhotoListView):
     def get_queryset(self):
-        return Photo.objects.filter(user=self.request.user)
+        return Photo.objects.filter(user__id=self.request.user.id)
+        
+    template_name = 'my_gallery.html'
