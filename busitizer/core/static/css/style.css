@@ -24,19 +24,20 @@ h1,h2,h3{font-family:'Enriqueta';}
 .in-progress h1{margin-top:10px;}
 .in-progress img{margin:10px 20px 20px;}
 .settings .intensity,
-.settings .mood{width:80%;display:block;margin:0 auto;margin-bottom:2em;}
+.settings .mood{width:45%;float: left;display:inline-block;margin:0 auto;margin-bottom:2em;}
 .settings .intensity h1,
 .settings .levels{padding:0;list-style:none;}
 .settings .levels li{float:left;display:inline-block;text-align:center;width:70px;font-size:12px;font-weight:700;line-height:18px;}
+.settings .mood { margin-right: 10%; }
 .settings .mood h1{font-size:14px;}
 .settings .mood .levels li .image{margin:0 auto;}
-.settings .levels li:first-child,.settings .levels li:nth-child(2){margin-right:28%;}
+.settings .levels li:first-child,.settings .levels li:nth-child(2){margin-right:24%;}
 .settings .mood .levels .happy .image{background-position:0 2px;}
 .settings .mood .levels .neutral .image{background-position:0 -69px;}
 .settings .mood .levels .angry .image{background-position:0 -136px;}
 .settings .levels span{display:block;}
 .settings .levels li .image{margin-bottom:10px;background-image:url("../img/moods.png");background-repeat:no-repeat;height:68px;width:50px;display:block;}
-.settings .triangle{width:0;height:0;border-color:rgba(255,255,255,0);border-right:40px solid;border-top:40px solid transparent;border-bottom:0 solid transparent;-moz-transform:scale(10,1);-webkit-transform:scale(10,1);margin:0 auto 1em;}
+.settings .triangle{width:0;height:0;border-color:rgba(255,255,255,0);border-right:40px solid;border-top:48px solid transparent;border-bottom:0 solid transparent;-moz-transform:scale(10,1);-webkit-transform:scale(10,1);margin:20px auto 1em;}
 .finished{margin-bottom:40px;}
 .finished .share{padding-left:0;font-size: 12px; font-weight:bold; width: 300px; float: right; }
 .finished .share li{float:left;display:inline-block;width:50%;}
