@@ -1,7 +1,7 @@
 import os
 from busitizer.settings import *
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # OK, this is silly, but I'm gonna do it.

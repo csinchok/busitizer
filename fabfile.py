@@ -26,10 +26,12 @@ def generate_reports():
             run('pylint --rcfile=.pylintrc busitizer > %s/webroot/pylint.html' % env.projectroot)
 
 def deploy():
-    rsync_project(env.webroot, delete=True, exclude=['.env', '*.pyc', '.git', '.coverage', 'test_images', 'busitizer/webroot/static', 'busitizer/webroot/media'])
+    rsync_project(env.webroot, delete=True, exclude=['.env', '*.db', '*.pyc', '.git', '.coverage', 'test_images', 'busitizer/webroot/static', 'busitizer/webroot/media'])
     with virtualenv():
         if not files.exists('.env'):
             run('virtualenv .env')
         run('pip install -r requirements.txt')
         run('python manage.py collectstatic --noinput')
+        run('DJANGO_SETTINGS_MODULE=busitizer.production python manage.py syncdb --noinput')
+        run('DJANGO_SETTINGS_MODULE=busitizer.production python manage.py migrate')
         run('supervisorctl reload')
