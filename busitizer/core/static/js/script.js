@@ -1,21 +1,13 @@
 $(function() {
 
 	$.localScroll.defaults.axis = 'xy';
-	
-	// Scroll initially if there's a hash (#something) in the url 
-	$.localScroll.hash({
-		target: '#content',
-		queue:true,
-		duration:400,
-		lazy:true
-	});
 
 	$.localScroll({
 		lazy:true,
 		target: '#content',
 		queue:true,
 		duration:400,
-		hash:true,
+		hash:false,
 		onBefore:function( e, anchor, $target ){
 			// The 'this' is the settings object, can be modified
 		},
@@ -40,21 +32,22 @@ $(function() {
 	}
 );
 
-function poll_url(url, callback) {
+function poll_url(url) {
 	$.get(url, function(data) {
 		if(data.completed) {
-			callback(data);
+			$('.busitized img').attr('src', data.image);			
+			$('#screen-3 .proceed').show();
 		} else {
-			setTimeout(function() {poll_url(url, callback);}, 1000);
+			setTimeout(function() {poll_url(url);}, 1000);
 		}
 	});
 }
 
-function busitize(callback) {
+function busitize() {
 	$.get('/grab_photos.json', function(data) {
 		if(data.success) {
 			var url = '/poll_completion/' + data.task_id + '.json';
-			poll_url(url, callback);
+			poll_url(url);
 		} else {
 			alert(data.message);
 		}

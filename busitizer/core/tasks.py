@@ -129,8 +129,8 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     busitized.save(busitized_path)
     
     photo = Photo.objects.create(   user=user, 
-                                    original=os.path.basename(image_path), 
-                                    busitized=os.path.basename(busitized_path), 
+                                    original='originals/' + os.path.basename(image_path), 
+                                    busitized='busitized/' + os.path.basename(busitized_path), 
                                     fb_id=fb_id, 
                                     tweet_id=tweet_id)
     print("Returning busitized photo: %s" % photo)

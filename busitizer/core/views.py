@@ -18,6 +18,8 @@ def poll_completion(request, task_id):
         data['completed'] = True
         photo = result.result
         data['image'] = photo.busitized.url
+        data['width'] = photo.busitized.width
+        data['height'] = photo.busitized.height
     return HttpResponse(json.dumps(data), mimetype="application/json")
                               
 def grab_photos(request):

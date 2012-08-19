@@ -50,3 +50,5 @@ h1,h2,h3{font-family:'Enriqueta';}
 .finished .busitized img{width:100%;}
 .proceed{display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
+
+#screen-3 .proceed {display: none;}
