@@ -1,7 +1,7 @@
 {% load thumbnail %}
 
 <div class="busitized">
-{% thumbnail photo.busitized "500" upscale=False as im %}
+{% thumbnail photo.busitized "580" upscale=False as im %}
 	<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />
 {% endthumbnail %}
 </div>

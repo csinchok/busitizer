@@ -39,7 +39,11 @@ h1,h2,h3{font-family:'Enriqueta';}
 .settings .levels li .image{margin-bottom:10px;background-image:url("../img/moods.png");background-repeat:no-repeat;height:68px;width:50px;display:block;}
 .settings .triangle{width:0;height:0;border-color:rgba(255,255,255,0);border-right:40px solid;border-top:48px solid transparent;border-bottom:0 solid transparent;-moz-transform:scale(10,1);-webkit-transform:scale(10,1);margin:20px auto 1em;}
 .finished{margin-bottom:40px;}
-.finished .share{padding-left:0;font-size: 12px; font-weight:bold; width: 300px; float: right; }
+.finished .tools {padding-left:0;font-size: 12px; width: 300px; float: right; }
+.finished .tools h1 { font-size: 18px;}
+.finished .permalink { margin-bottom: 20px; }
+.finished .permalink input { background: #000; border-radius: 10px; border: 0; padding: 10px;color: #fff;font-size:13px;font-family:'Open Sans'; width: 280px;}
+.finished .share{font-weight:bold; padding: 0; margin: 0; }
 .finished .share li{float:left;display:inline-block;width:50%;}
 .finished .share li:last-child { margin-right:0;}
 .finished .share li a span { padding-right: 7px; background-image: url("../img/share.png");background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block;}
@@ -47,8 +51,8 @@ h1,h2,h3{font-family:'Enriqueta';}
 .finished .share li.facebook a span {background-position: 0 -16px;}
 .finished .share li.twitter a span {background-position: 0 0;}
 .finished .share li.delete a span {background-position: 0 -48px;}
-.finished .busitized{float: left; display: block; }
-.finished .busitized img{width:100%;}
+.finished .busitized{float: left; display: block; width:600px;background:rgba(0,0,0,0.2); padding:10px 0;}
+.finished .busitized img{margin: 0 auto;display: block;}
 .proceed{display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
 
