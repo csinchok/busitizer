@@ -21,6 +21,7 @@ ipython==0.13
 kombu==2.4.0
 logilab-astng==0.24.0
 logilab-common==0.58.1
+meld3==0.6.8
 numpy==1.6.2
 oauth==1.0.1
 oauth2==1.5.211
@@ -34,5 +35,7 @@ requests==0.13.6
 simplejson==2.6.1
 sorl-thumbnail==11.12
 ssh==1.7.14
+superlance==0.6
+supervisor==3.0a12
 tweepy==1.11
 wsgiref==0.1.2
