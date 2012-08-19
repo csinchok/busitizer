@@ -5,6 +5,7 @@ import requests
 import urlparse
 import facebook
 import json
+import hashlib
 
 from django.conf import settings
 from django.core.cache import cache
@@ -54,12 +55,17 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
       busey_count - How much Busey can you handle?
     """
     
-    # Download the photo:
+    # Each URL should be saved to the same location each time.
+    file_path, file_extension = os.path.splitext(urlparse.urlparse(image_url).path)
+    file_name = "%s%s" % (hashlib.sha1(file_path).hexdigest(), file_extension)
+    image_path = os.path.join(settings.MEDIA_ROOT, 'originals', file_name)
+    
+    # Have we tried this image before? If so, let's skip it.
+    if os.path.exists(image_path):
+        return None
+        
     response = requests.get(image_url)
     image_data = response.content
-    
-    file_name = os.path.basename(urlparse.urlparse(image_url).path)
-    image_path = os.path.join(settings.MEDIA_ROOT, 'originals', file_name)
     image_file = open(image_path, 'wr')
     image_file.write(image_data)
     image_file.close()
@@ -81,6 +87,11 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     eye_frames = cv.HaarDetectObjects(cv_image, EYE_HC, cv.CreateMemStorage())
     for face_frame,n in cv.HaarDetectObjects(cv_image, FACE_HC, cv.CreateMemStorage()):
         face = Feature(face_frame)
+        
+        # If this face overlaps any over faces, let's bail now.
+        for valid_face in faces:
+            if face.overlaps(valid_face):
+                continue
         
         # If the face should be ignored, let's bail now.
         if fb_ignore_tag and face.contains_point(fb_ignore_tag[0], fb_ignore_tag[1]):
