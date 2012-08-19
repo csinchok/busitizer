@@ -71,11 +71,9 @@ class PhotoListView(ListView):
 
     context_object_name = 'photo_list'
     template_name = 'photo_gallery.html'
+    paginate_by = 10
     
     
-class MyPhotoListView(ListView):
+class MyPhotoListView(PhotoListView):
     def get_queryset(self):
         return Photo.objects.filter(user=self.request.user)
-    
-    context_object_name = 'photo_list'
-    template_name = 'photo_gallery.html'
