@@ -160,6 +160,11 @@ blockquote {
     .welcome .busey {
         float: right;
         margin: 0 0 20px 20px; }
+		
+	.welcome .small { 
+		width: 45%;
+		font-size: 13px;
+		line-height: 18px; }
 
 .in-progress { text-align: center }
 
