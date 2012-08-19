@@ -3,14 +3,14 @@
 
 {% block social_meta %}
 <meta property="og:type" content="article"> 
-<meta property="og:url" content="http://busitizer.com">
-<meta property="og:title" content="The Busitizer">
+<meta property="og:url" content="http://busitizer.com{photo.get_absolute_url}}">
+<meta property="og:title" content="BIRD SEASON'S OVER, BUTTHORN!">
 
 <meta name="twitter:card" content="photo">
 <meta name="twitter:site" content="@busitizer">
 <meta name="twitter:url" content="http://busitizer.com{{photo.get_absolute_url}}">
 <meta name="twitter:title" content="Busitizer">
-<meta name="twitter:description" content="BIRD SEASON'S OVER, BUTTHORN">
+<meta name="twitter:description" content="BIRD SEASON'S OVER, BUTTHORN!">
 
 {% thumbnail photo.busitized "500" upscale=False as im %}
 <meta name="twitter:image" content="{{ im.url }}">
