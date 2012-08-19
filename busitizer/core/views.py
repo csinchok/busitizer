@@ -21,7 +21,7 @@ from busitizer.core.models import Photo
 def poll_completion(request, task_id):
     data = {'completed': False}
     result = AsyncResult(task_id)
-    if result.ready():
+    if result.ready() and not isinstance(result.result, Exception):
         data['completed'] = True
         photo = result.result
         data['html'] = render_to_string('snippets/photo.html', {'photo': photo})

@@ -35,6 +35,7 @@ $(function() {
 function poll_url(url, timeout) {
 	$.get(url, function(data) {
 		if(timeout <= 0) {
+			$('#content').stop().scrollTo('#screen-1', 400);
 			alert("I guess you're just not cool enough to get busitized.");
 		} else {
 			if(data.completed) {
@@ -52,7 +53,7 @@ function busitize() {
 	$.get('/grab_photos.json', function(data) {
 		if(data.success) {
 			var url = '/poll_completion/' + data.task_id + '.json';
-			poll_url(url, 30);
+			poll_url(url, 20);
 		} else {
 			alert(data.message);
 		}

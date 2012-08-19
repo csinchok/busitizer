@@ -31,8 +31,9 @@ python-dateutil==1.5
 python-memcached==1.48
 python-openid==2.2.5
 python-twitpic==2.1
+raven==2.0.3
 requests==0.13.6
-simplejson==2.6.1
+simplejson==2.4.0
 sorl-thumbnail==11.12
 ssh==1.7.14
 superlance==0.6
