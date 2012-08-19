@@ -68,7 +68,7 @@ blockquote .credit a { text-decoration: underline; }
 .finished .busitized{float: left; display: block; width:600px;background:rgba(0,0,0,0.2); padding:10px 0;}
 .finished .busitized img{margin: 0 auto;display: block;}
 .gallery ul { margin: -10px; padding: 0; }
-.gallery ul li { width: 163px; height: 163px; display: inline-block; padding: 10px; overflow: hidden; }
+.gallery ul li { width: 168px; height: 168px; display: inline-block; padding: 10px; overflow: hidden; }
 .gallery ul li a { display: block; }
 .proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
