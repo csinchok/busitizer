@@ -1,0 +1,7 @@
+{% load thumbnail %}
+<div class="busitized">
+{% thumbnail photo.busitized "500" as im %}
+	<img src="{{ im.url }}" width="500" />
+{% endthumbnail %}
+</div>
+{% include "snippets/sharetools.html" %}

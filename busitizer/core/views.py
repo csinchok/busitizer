@@ -9,6 +9,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
+from django.template.loader import render_to_string
 
 from busitizer.core.tasks import get_photos
 from busitizer.core.models import Photo
@@ -19,9 +20,7 @@ def poll_completion(request, task_id):
     if result.ready():
         data['completed'] = True
         photo = result.result
-        data['image'] = photo.busitized.url
-        data['width'] = photo.busitized.width
-        data['height'] = photo.busitized.height
+        data['html'] = render_to_string('snippets/photo.html', {'photo': photo})
     return HttpResponse(json.dumps(data), mimetype="application/json")
                               
 def grab_photos(request):
@@ -41,4 +40,4 @@ class PhotoDetailView(DetailView):
 
     model = Photo
     context_object_name = 'photo'
-    template_name = 'photo.html'
+    template_name = 'photo_detail.html'

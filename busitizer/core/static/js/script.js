@@ -35,7 +35,7 @@ $(function() {
 function poll_url(url) {
 	$.get(url, function(data) {
 		if(data.completed) {
-			$('.busitized img').attr('src', data.image);			
+			$('#screen-4 .inner').html(data.html);
 			$('#content').stop().scrollTo('#screen-4', 400);
 		} else {
 			setTimeout(function() {poll_url(url);}, 1000);
