@@ -69,6 +69,12 @@ blockquote .credit a { text-decoration: underline; }
 .finished .busitized img{margin: 0 auto;display: block;}
 .gallery ul { margin: -10px; padding: 0; }
 .gallery ul li { width: 163px; height: 163px; display: inline-block; padding: 10px; overflow: hidden; }
+.gallery ul li a { display: block; }
 .proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
+
+#screen-2 { display:none; }
+#screen-3 { display:none; }
+#screen-4 { display:none; }
+
 #screen-3 .proceed {display: none;}
