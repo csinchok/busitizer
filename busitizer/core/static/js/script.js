@@ -86,7 +86,7 @@ function share(picture) {
       picture: picture,
       name: 'Gary Busey',
       caption: 'Get a little Busey in your life',
-      description: 'I found some extra Busey lying around and I wanted to share it with the world.'
+      description: 'I found some extra Busey lying around and wanted to share it with the world.'
     };
 
     FB.ui(obj, function(){});
