@@ -8,8 +8,10 @@ from celery.result import AsyncResult
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.views.generic.detail import DetailView
 
 from busitizer.core.tasks import get_photos
+from busitizer.core.models import Photo
       
 def poll_completion(request, task_id):
     data = {'completed': False}
@@ -35,3 +37,8 @@ def grab_photos(request):
     
     return HttpResponse(json.dumps(data), mimetype="application/json")
     
+class PhotoDetailView(DetailView):
+
+    model = Photo
+    context_object_name = 'photo'
+    template_name = 'photo.html'
