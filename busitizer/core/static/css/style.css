@@ -67,4 +67,8 @@ h1,h2,h3{font-family:'Carter One'; font-weight: 400; }
 .proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
 
+#screen-2 { display:none; }
+#screen-3 { display:none; }
+#screen-4 { display:none; }
+
 #screen-3 .proceed {display: none;}

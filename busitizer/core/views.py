@@ -30,10 +30,12 @@ def poll_completion(request, task_id):
                               
 def grab_photos(request):
     
+    busey_level = request.GET.get('busey_level', 4)
+    
     facebook_auth = request.user.social_auth.filter(provider='facebook')
     if facebook_auth.count() == 1:
         token = facebook_auth[0].tokens['access_token']
-        result = get_photos.delay(request.user, token=token)
+        result = get_photos.delay(request.user, token=token, busey_count=busey_level)
         cache.set(result.task_id, False)
         data = {'success': True, 'message': 'Working...', 'task_id': result.task_id}
     else:

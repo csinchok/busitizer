@@ -20,10 +20,10 @@ $(function() {
 $(function() {
 		$( "a.button" ).button();
 		$( "#busey-level, #busey-mood" ).slider({
-			value:1,
-			min: 0,
-			max: 2,
-			step: 1,
+			value: 4,
+			min: 1,
+			max: 7,
+			step: 3,
 			slide: function( event, ui ) {
 				$( "#amount" ).val( "$" + ui.value );
 			}
@@ -49,7 +49,9 @@ function poll_url(url, timeout) {
 }
 
 function busitize() {
-	$.get('/grab_photos.json', function(data) {
+	var val = $("#busey-level").slider("value");
+	
+	$.get('/grab_photos.json?busey_level=' + val, function(data) {
 		if(data.success) {
 			var url = '/poll_completion/' + data.task_id + '.json';
 			poll_url(url, 30);
@@ -92,6 +94,10 @@ function share(picture) {
 
 
 $(document).ready(function() {
+	$("#screen-2").show();
+	$("#screen-3").show();
+	$("#screen-4").show();
+	
 	setAllSizes();
 	$(window).resize(function() {
 		setAllSizes();
