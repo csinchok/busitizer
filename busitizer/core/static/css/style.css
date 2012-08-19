@@ -22,24 +22,26 @@ h1, h2, h3 { font-family: 'Enriqueta';}
 .section {position:relative; }
 .section .sub {position:relative;float:left;height:100%; background: rgba(0, 0, 0, 0.8); color: #fff; }
 .section .sub .inner { padding: 20px; }
-#screen-4 { text-align: center; }
-#screen-4 h1 { margin-top: 10px; }
-#screen-4 img { margin:10px 20px 20px; }
+
+#screen-1 .busey { float: right; margin: 0 0 10px 10px; }
+#screen-3 { text-align: center; }
+#screen-3 h1 { margin-top: 10px; }
+#screen-3 img { margin:10px 20px 20px; }
 .proceed {text-align: right; clear:both;}
 #screen-5 { margin-bottom: 40px;}
 .settings { margin-bottom: 20px; }
 .intensity h1, .mood h1 { font-size: 14px; }
 .intensity, .mood { width: 80%; display: block; margin: 0 auto; }
 .mood { margin-bottom: 2em; }
-.mood .levels { padding: 0;list-style: none;  }
-.mood .levels li { float: left; display: inline-block; text-align: center; width: 70px; font-size: 12px; font-weight: 700; line-height: 18px; }
+.levels { padding: 0;list-style: none;  }
+.levels li { float: left; display: inline-block; text-align: center; width: 70px; font-size: 12px; font-weight: 700; line-height: 18px; }
 .mood .levels li .image { margin: 0 auto; }
-.mood .levels .happy, .mood .levels .neutral {margin-right: 28%;}
+.levels li:first-child, .levels li:nth-child(2) {margin-right: 28%;}
 .mood .levels .happy .image { background-position: 0 2px;}
 .mood .levels .neutral .image { background-position: 0 -69px; }
 .mood .levels .angry .image { background-position: 0 -136px; }
-.mood .levels span { display: block; }
-.mood .levels li .image { margin-bottom: 10px; background-image: url("../img/moods.png"); background-repeat: no-repeat; height: 68px; width: 50px; display: block;}
+.levels span { display: block; }
+.levels li .image { margin-bottom: 10px; background-image: url("../img/moods.png"); background-repeat: no-repeat; height: 68px; width: 50px; display: block;}
 .triangle {
    width: 0;
    height: 0;
@@ -58,5 +60,6 @@ margin:0 auto 1em;
 .finished .busitized img { width: 100%; }
 
 .ui-slider { width: 85%; margin: 0 auto 20px auto; }
+.hidden{float:left;text-indent:-9999em;_display:block;margin:0;padding:0;/*safari bugfix:*/height:0;}
 
 #page-wrapper { background: url("../img/bg.jpg") no-repeat fixed center top; width: 100%; min-height: 100%; position:absolute;}

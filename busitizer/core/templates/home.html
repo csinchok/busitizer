@@ -3,26 +3,21 @@
 
 <section class="sub welcome" id="screen-1">
 	<div class="inner cf">
-		<img src="{{ STATIC_URL }}img/buseyface.png" alt="Gary Busey, of course." align="right" />
+		<img class="busey" src="{{ STATIC_URL }}img/buseyface.png" alt="Gary Busey, of course." align="right" />
 		<h1>Welcome</h1>
-		<p>The Busitizer applies the magic of film star, stage actor and artist Gary Busey to your very own Facebook photos. </p>
-		<p>Connect your Facebook profile, let the Busitizer scan your photos and discover which memory of your life could have best used a little more Gary Busey.</p>
-		<p><a class="button" href="#screen-2">Get started &raquo;</a></p>
+		<p><strong>The Busitizer</strong> applies star of stage and screen Gary Busey to your very own Facebook photos. </p>
+		<p>Connect your Facebook profile, let <strong>The Busitizer</strong> scan your photos and discover which memory of your life best deserves a little more Gary Busey.</p>
+		<p><a href="#"><img src="{{ STATIC_URL }}img/login-facebook-button.png" alt="Login with Facebook"></a></p>
+		
+		<div class="proceed"><a class="button" href="#screen-2">Let's get started &raquo;</a></div>
 	</div>
 </section>
 
-<section class="sub connect" id="screen-2">
-	<div class="inner"><h1>Connect to Facebook</h1>
-	<p>Put Facebook login button here</p>
-	<p><em>Why do you require this information?</em> The Busitizer uses your Facebook photos.</p>
-	<div class="proceed"><a class="button" href="#screen-3">Log in &raquo;</a></div></div>
-</section>
-
-<section class="sub select-profile" id="screen-3">
+<section class="sub select-profile" id="screen-2">
 	
 	<div class="inner">
 		
-		<h1>Customize</h1>
+		<h1 class="hidden">Customize</h1>
 	
 		<div class="settings">
 
@@ -42,25 +37,31 @@
 
 				<div class="levels triangle"></div>
 
+				<ul class="levels cf">
+					<li class="low"><span>Minimal Busey</span></li>
+					<li class="medium"><span>Medium Busey</span></li>
+					<li class="max"><span>Maximum Busey</span></li>
+				</ul>
+
 				<div id="busey-level"></div>
 
 			</div>
 
 		</div>
 
-		<div class="proceed"><a class="button" href="#screen-4">Busitize me &raquo;</a></div>
+		<div class="proceed"><a class="button" href="#screen-3">Busitize me &raquo;</a></div>
 	
 	</div>
 	
 </section>
 
-<section class="sub in-progress" id="screen-4">
+<section class="sub in-progress" id="screen-3">
 	<div class="inner"><h1>Busitizing in progress <span id="progressDots"></span></h1>
 	<img src="{{ STATIC_URL }}img/busitizing.gif" alt="Busitizing...">
-	<div class="proceed"><a class="button" href="#screen-5">See creation &raquo;</a></div></div>
+	<div class="proceed"><a class="button" href="#screen-4">See creation &raquo;</a></div></div>
 </section>
 
-<section class="sub finished" id="screen-5">
+<section class="sub finished" id="screen-4">
 	<div class="inner">
 	<div class="busitized"></div>
 	<ul class="cf">
