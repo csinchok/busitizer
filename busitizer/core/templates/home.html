@@ -17,7 +17,7 @@
 			best deserves a little more Gary Busey.</p>
 
 		<div class="proceed">
-			{% if user and not user.is_anonymous %}
+			{% if not user.is_anonymous %}
 				<a class="button" href="#screen-2" onclick="$.scrollTo( '#screen-2', 800, {easing:'elasout'} );return False;">Let's get started &raquo;</a>
 			{% else %}
 				<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
