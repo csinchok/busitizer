@@ -3,42 +3,49 @@
 
 <section class="sub welcome" id="screen-1">
 	<div class="inner cf">
+
 		<img class="busey" src="{{ STATIC_URL }}img/buseyface.png" alt="Gary Busey, of course." align="right" />
+		
 		<h1>Welcome</h1>
-		<p><strong>The Busitizer</strong> applies star of stage and screen Gary Busey to your very own Facebook photos. </p>
-		<p>Connect your Facebook profile, let <strong>The Busitizer</strong> scan your photos and discover which memory of your life best deserves a little more Gary Busey.</p>
+		
+		<p><strong>The Busitizer</strong> applies star of stage and 
+			screen Gary Busey to your very own Facebook photos. </p>
+		
+		<p>Connect your Facebook profile, let <strong>The Busitizer</strong> 
+			scan your photos and discover which memory of your life 
+			best deserves a little more Gary Busey.</p>
+		
 		<p><a href="#"><img src="{{ STATIC_URL }}img/login-facebook-button.png" alt="Login with Facebook"></a></p>
 		
 		<div class="proceed"><a class="button" href="#screen-2">Let's get started &raquo;</a></div>
+	
 	</div>
 </section>
 
-<section class="sub select-profile" id="screen-2">
+<section class="sub settings" id="screen-2">
 	
 	<div class="inner">
 		
-		<h1 class="hidden">Customize</h1>
+		<h1 class="hidden">Settings</h1>
+
+		<div class="mood cf">
+
+			<ul class="levels cf">
+				<li class="happy"><span class="image"></span><span>Chaotic happy</span></li>
+				<li class="neutral"><span class="image"></span><span>Chaotic neutral</span></li>
+				<li class="angry"><span class="image"></span><span>Chaotic angry</span></li>
+			</ul>
+			
+			<div id="busey-mood"></div>
 	
-		<div class="settings">
+		</div>
 
-			<div class="mood cf">
-
-				<ul class="levels cf">
-					<li class="happy"><span class="image"></span><span>Chaotic happy</span></li>
-					<li class="neutral"><span class="image"></span><span>Chaotic neutral</span></li>
-					<li class="angry"><span class="image"></span><span>Chaotic angry</span></li>
-				</ul>
-				
-				<div id="busey-mood"></div>
-		
-			</div>
-
-			<div class="intensity cf">
+		<div class="intensity cf">
 
 				<div class="levels triangle"></div>
 
 				<ul class="levels cf">
-					<li class="low"><span>Minimal Busey</span></li>
+					<li class="low"><span>Minimum Busey</span></li>
 					<li class="medium"><span>Medium Busey</span></li>
 					<li class="max"><span>Maximum Busey</span></li>
 				</ul>
@@ -47,8 +54,6 @@
 
 			</div>
 
-		</div>
-
 		<div class="proceed"><a class="button" href="#screen-3">Busitize me &raquo;</a></div>
 	
 	</div>
@@ -56,22 +61,36 @@
 </section>
 
 <section class="sub in-progress" id="screen-3">
-	<div class="inner"><h1>Busitizing in progress <span id="progressDots"></span></h1>
-	<img src="{{ STATIC_URL }}img/busitizing.gif" alt="Busitizing...">
-	<div class="proceed"><a class="button" href="#screen-4">See creation &raquo;</a></div></div>
+	<div class="inner">
+		
+		<h1>Busitizing in progress <span id="progressDots"></span></h1>
+		
+		<img src="{{ STATIC_URL }}img/busitizing.gif" alt="Busitizing...">
+		
+		<div class="proceed">
+			<a class="button" href="#screen-4">See creation &raquo;</a>
+		</div>
+	
+	</div>
 </section>
 
 <section class="sub finished" id="screen-4">
 	<div class="inner">
-	<div class="busitized"></div>
-	<ul class="cf">
-		<li><a href="#">Download full image (42kb)</a></li>
-		<li><a href="#">Share on Facebook</a></li>
-		<li><a href="#">Share on Twitter</a></li>
-		<li><a href="#">Share via email</a></li>
-	</ul>
+		
+		<div class="busitized"><img src="http://www.placekitten.com/500/300" /></div>
+		
+		<ul class="share cf">
+			<li class="download"><a href="#"><span></span>Download image</a></li>
+			<li class="facebook"><a href="#"><span></span>Share on Facebook</a></li>
+			<li class="twitter"><a href="#"><span></span>Share on Twitter</a></li>
+			<li class="email"><a href="#"><span></span>Share via email</a></li>
+		</ul>
 	
-	<div class="proceed"><a class="button" href="#screen-1">Busitize another photo?</a></div></div>
+		<div class="proceed">
+			<a class="button" href="#screen-1">Busitize another photo?</a>
+		</div>
+		
+	</div>
 </section>
 
 {% endblock %}
