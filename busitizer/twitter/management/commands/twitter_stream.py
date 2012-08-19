@@ -35,6 +35,10 @@ class Command(BaseCommand):
     help = 'Listens for mentions on twitter'
 
     def handle(self, *args, **options):
+        """
+        A long running command, just listening to Twitter for @busitizer mentions, and passing them along to a celery task.
+        """
+        
     	l = StdOutListener()
     	auth = OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
     	auth.set_access_token(settings.TWITTER_OAUTH_KEY, settings.TWITTER_OAUTH_SECRET)
