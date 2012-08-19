@@ -2,16 +2,19 @@
 {% load thumbnail %}
 
 {% block body %}
-<section class="sub">
+<section class="sub gallery">
 	<div class="inner cf">
         {% if photo_list %}
+		<ul>
+			
             {% for photo in photo_list %}
-                <div class="busitized">
-                {% thumbnail photo.busitized "580" upscale=False as im %}
+                <li>
+                	{% thumbnail photo.busitized "170" upscale=False as im %}
                 	<a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
-                {% endthumbnail %}
-                </div>
+					{% endthumbnail %}
+                </li>
             {% endfor %}
+
             {% if is_paginated %}
                 {% block pagination %}
                 <div class="pagination">
@@ -29,8 +32,10 @@
                 </div>
                 {% endblock %}
             {% endif %}
+
+		</ul>
         {% else %}
-        <p>No Buseys!</p>
+        <p>You haven't Busitized any photos yet! <a href="/">Click here to get started.</a></p>
         {% endif %}
 	</div>
 </section>

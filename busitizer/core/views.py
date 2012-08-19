@@ -8,12 +8,13 @@ from celery.result import AsyncResult
 
 from django.conf import settings
 from django.core.cache import cache
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
+from django.contrib.auth import logout
 
 from busitizer.core.tasks import get_photos
 from busitizer.core.models import Photo
@@ -21,7 +22,7 @@ from busitizer.core.models import Photo
 def poll_completion(request, task_id):
     data = {'completed': False}
     result = AsyncResult(task_id)
-    if result.ready():
+    if result.ready() and not isinstance(result.result, Exception):
         data['completed'] = True
         photo = result.result
         data['html'] = render_to_string('snippets/photo.html', {'photo': photo})
@@ -60,6 +61,10 @@ def delete_photo(request, pk):
         message = "Photo deleted."
         
     return render_to_response("delete_photo.html", context_instance=RequestContext(request, {'message': message}))
+    
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
     
 class PhotoDetailView(DetailView):
 
