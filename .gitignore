@@ -2,6 +2,7 @@
 .DS_Store
 .env
 webroot/static
+webroot/media
 test_images/*
 *.db
 .coverage

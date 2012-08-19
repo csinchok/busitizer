@@ -6,7 +6,7 @@ import twitpic
 import urlparse
 from bs4 import BeautifulSoup
 
-from busitizer.core.tasks import busitize
+from busitizer.core.tasks import busitize_url
 
 twitpic = twitpic.TwitPicOAuthClient(
     consumer_key = settings.TWITPIC_CONSUMER_KEY,

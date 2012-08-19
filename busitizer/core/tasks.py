@@ -1,10 +1,16 @@
 import os
 import celery
 import random
+import requests
+import urlparse
+import facebook
+import json
 
 from django.conf import settings
+from django.core.cache import cache
 
 from busitizer.core.models import Photo
+from busitizer.core.utils import Feature, eyes_valid, busitize_image
 
 try:
     from cv2 import cv
@@ -14,53 +20,28 @@ except ImportError:
     print("You don't have OpenCV, so you won't be able to busitize :-(")
 from PIL import Image
 
-
-BUSEYS = [Image.open(os.path.join(settings.BUSEYS, filename)) 
-                for filename in os.listdir(settings.BUSEYS)]
-
-class Feature(object):
-    """
-    This object just wraps an OpenCV frame, adding some useful methods.
-    """
-    def __init__(self, frame):
-        self.x = frame[0]
-        self.y = frame[1]
-        self.width = frame[2]
-        self.height = frame[3]
-    
-    def contains(self, feature):
-        if feature.x < self.x:
-            return False
-        if feature.y < self.y:
-            return False
-        if (feature.x + feature.width) > (self.x + self.width):
-            return False
-        if (feature.y + feature.height) > (self.y + self.height):
-            return False
-        return True
-
-    def contains_point(self, x, y):
-        if x < self.x:
-            return False
-        if x > (self.x + self.width):
-            return False
-        if y < self.y:
-            return False
-        if y > (self.y + self.height):
-            return False
-        return True
-
-    def overlaps_x(self, feature):
-        return (feature.x >= self.x) and (feature.x <= (self.x + self.width))
-
-    def overlaps_y(self, feature):
-        return (feature.y >= self.y) and (feature.y <= (self.y + self.height))
-
-    def overlaps(self, feature):
-        return (self.overlaps_x(feature) and self.overlaps_y(feature))
+@celery.task
+def get_photos(user, token=None):
+    if token is None:
+        token = user.social_auth.get(provider='facebook').tokens['access_token']
+    graph = facebook.GraphAPI(token)
+    photos_stream = graph.get_object("me/photos")
+    photos = photos_stream['data']
+    random.shuffle(photos)
+    for photo in photos:
+        result = busitize_url.delay(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'])
+        try:
+            photo = result.get(timeout=10)
+        except Exception as e:
+            print(e)
+            break
+        if photo:
+            cache.set(get_photos.request.id, True)
+            break
+        
 
 @celery.task
-def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore=None, busey_count=5):
+def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, fb_ignore_tag=None, busey_count=5):
     """
     This task determines if an image is 'bustizable', and if so, busitizes it,
     returning the path of the busitized image. The algorithm is pretty strict,
@@ -68,32 +49,31 @@ def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore
     
     Here's how the params work:
       image_path - Required, the absolute path to the image you would like to busitize.
-      tags - An array of [x,y] locations to faces you know to exist in the photo.
-      ignore - The [x,y] location of a face that we need to avoid busitizing.
+      fb_tags - An array of facebook tags of faces you know to exist in the photo.
+      fb_ignore_tag - The location of a face that we need to avoid busitizing.
       busey_count - How much Busey can you handle?
     """
     
-    def _face_valid(face, eyes):
-        """
-        This method encasulates the logic to determine if a face is 'valid' given
-        a set of eyes.
-        """
-        if len(eyes) != 2:
-            # If we dont' have two eyes, it's not valid.
-            return False
+    # Download the photo:
+    response = requests.get(image_url)
+    image_data = response.content
     
-        # If the eyes overlap eachother on the x axis, the face is probably not valid.
-        if eyes[0].overlaps_x(eyes[1]):
-            return False
-        if eyes[1].overlaps_x(eyes[0]):
-            return False
-        
-        # We make sure that the eyes overlap eachother on the y axis.
-        if (not eyes[0].overlaps_y(eyes[1])) and (not eyes[1].overlaps_y(eyes[0])):
-            return False
-        return True
+    file_name = os.path.basename(urlparse.urlparse(image_url).path)
+    image_path = os.path.join(settings.MEDIA_ROOT, 'originals', file_name)
+    image_file = open(image_path, 'wr')
+    image_file.write(image_data)
+    image_file.close()
     
+    # Load it up in OpenCV (should maybe just keep it in memory?)
     cv_image = cv.LoadImage(image_path, 0)
+    
+    # The facebook tags are specified as percentages, let's convert those to pixels.
+    tags = []
+    for tag in fb_tags:
+        print(tag)
+        x = (tag['x']/100) * cv_image.width
+        y = (tag['y']/100) * cv_image.height
+        tags.append([x,y])
     
     # A list of the faces we've found in the image. So far, none.
     faces = []
@@ -103,7 +83,7 @@ def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore
         face = Feature(face_frame)
         
         # If the face should be ignored, let's bail now.
-        if ignore and face.contains_point(ignore[0], ignore[1]):
+        if fb_ignore_tag and face.contains_point(fb_ignore_tag[0], fb_ignore_tag[1]):
             continue
         
         if tags:
@@ -127,7 +107,7 @@ def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore
                 eyes_in_head.append(eye)
         
         # Given the set of eyes we found in this face, should it be considered valid?
-        if _face_valid(face, eyes_in_head):
+        if eyes_valid(eyes_in_head):
             faces.append(face)
         
         # Have we had enough busey yet? CAN THERE BE TOO MUCH?
@@ -140,24 +120,9 @@ def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore
     
     # Now we do the busitization
     original = Image.open(image_path)
-    for face in faces:
-        # Make the overlay a little larger than the feature, because it's funnier.
-        overlay = random.choice(BUSEYS).resize((int(face.width * 1.4), int(face.height * 1.4)))
-        # Twist it a little
-        overlay = overlay.rotate(random.randint(-15,15))
-        # Maybe flip it horizontally
-        if random.random() < 0.5:
-            overlay = overlay.transpose(Image.FLIP_LEFT_RIGHT)
-            
-        # If the mode is RGBA, we use the mask, otherwise
-        paste_coord = (face.x - (face.width/6), face.y - (face.height/3))
-        if overlay.mode == 'RGBA':
-            original.paste(overlay, paste_coord, mask=overlay)
-        else:
-            original.paste(overlay, paste_coord)
-    
-    busitized_path = "%s_busitized%s" % os.path.splitext(image_path)
-    original.save(busitized_path)
+    busitized = busitize_image(original, faces)
+    busitized_path = image_path.replace('/originals/', '/busitized/')
+    busitized.save(busitized_path)
     
     photo = Photo.objects.create(   user=user, 
                                     original=image_path, 
