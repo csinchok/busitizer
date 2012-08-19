@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 class Photo(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
-    original = models.ImageField(upload_to='photos')
-    busitized = models.ImageField(upload_to='photos')
+    original = models.ImageField(upload_to='originals')
+    busitized = models.ImageField(upload_to='busitized')
     fb_id = models.IntegerField(null=True, blank=True)
     tweet_id = models.BigIntegerField(null=True, blank=True)
     source = models.URLField(null=True, blank=True)

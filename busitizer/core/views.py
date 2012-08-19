@@ -1,6 +1,6 @@
 import random
 import uuid
-import simplejson as json
+import json
 
 from celery import group
 
@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 
-from busitizer.core.tasks import busitize, download_image
+from busitizer.core.tasks import busitize
 
 from django_facebook.api import get_persistent_graph, FacebookUserConverter, require_persistent_graph
 from django_facebook.connect import CONNECT_ACTIONS, connect_user
@@ -29,8 +29,8 @@ def grab_photos(request):
     
     cache.set(str(_uuid), settings.BUSEY_COUNT)
     
-    for photo in photos:
-        result = download_image.apply_async((photo,), link=busitize.s(request.user, fb_id=photo['id'], tags=photo['tags']['data']))
+    # for photo in photos:
+        # result = download_image.apply_async((photo,), link=busitize.s(request.user, fb_id=photo['id'], tags=photo['tags']['data']))
     
     return HttpResponse(str(_uuid))
     

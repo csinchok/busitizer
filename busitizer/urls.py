@@ -8,7 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('registration.urls')),
-    
-    url(r'^facebook/', include('django_facebook.urls')),
+    url(r'', include('social_auth.urls')),
 )

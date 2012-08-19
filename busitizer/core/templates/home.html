@@ -1,4 +1,5 @@
 {% extends "base_ours.html" %}
+{% load url from future %}
 {% block body %}
 
 <section class="sub welcome" id="screen-1">
@@ -14,10 +15,14 @@
 		<p>Connect your Facebook profile, let <strong>The Busitizer</strong> 
 			scan your photos and discover which memory of your life 
 			best deserves a little more Gary Busey.</p>
-		
-		<p><a href="#"><img src="{{ STATIC_URL }}img/login-facebook-button.png" alt="Login with Facebook"></a></p>
-		
-		<div class="proceed"><a class="button" href="#screen-2">Let's get started &raquo;</a></div>
+
+		<div class="proceed">
+			{% if user and not user.is_anonymous %}
+				<a class="button" href="#screen-2">Let's get started &raquo;</a>
+			{% else %}
+				<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
+			{% endif %}
+		</div>
 	
 	</div>
 </section>

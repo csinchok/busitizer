@@ -1,9 +1,6 @@
 import os
 import celery
 import random
-import requests
-from PIL import Image
-from StringIO import StringIO
 
 from django.conf import settings
 
@@ -14,9 +11,7 @@ try:
     FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
     EYE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_eye.xml"))
 except ImportError:
-    cv = None
     print("You don't have OpenCV, so you won't be able to busitize :-(")
-    
 from PIL import Image
 
 
@@ -64,40 +59,8 @@ class Feature(object):
     def overlaps(self, feature):
         return (self.overlaps_x(feature) and self.overlaps_y(feature))
 
-def _face_valid(face, eyes):
-    """
-    This method encasulates the logic to determine if a face is 'valid' given
-    a set of eyes.
-    """
-    if len(eyes) != 2:
-        # If we dont' have two eyes, it's not valid.
-        return False
-    
-    # If the eyes overlap eachother on the x axis, the face is probably not valid.
-    if eyes[0].overlaps_x(eyes[1]):
-        return False
-    if eyes[1].overlaps_x(eyes[0]):
-        return False
-        
-    # We make sure that the eyes overlap eachother on the y axis.
-    if (not eyes[0].overlaps_y(eyes[1])) and (not eyes[1].overlaps_y(eyes[0])):
-        return False
-    return True
-    
 @celery.task
-def download_image(photo):
-    r = requests.get(photo['source'])
-    i = Image.open(StringIO(r.content))
-    image_path = os.path.join(settings.SITE_ROOT, 'images/' + photo['id'] + '.jpg')
-    i.save(image_path, "JPEG")
-    
-    print image_path
-    
-    return image_path
-    
-
-@celery.task
-def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_count=5):
+def busitize(image_path, user=None, fb_id=None, tweet_id=None, tags=None, ignore=None, busey_count=5):
     """
     This task determines if an image is 'bustizable', and if so, busitizes it,
     returning the path of the busitized image. The algorithm is pretty strict,
@@ -110,13 +73,25 @@ def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_co
       busey_count - How much Busey can you handle?
     """
     
-    if cv is None:
-        original = Image.open(image_path)
-        busitized_path = "%s_busitized%s" % os.path.splitext(image_path)
-        original.save(busitized_path)
+    def _face_valid(face, eyes):
+        """
+        This method encasulates the logic to determine if a face is 'valid' given
+        a set of eyes.
+        """
+        if len(eyes) != 2:
+            # If we dont' have two eyes, it's not valid.
+            return False
     
-        photo = Photo.objects.create(user=user, original=image_path, busitized=busitized_path, fb_id=fb_id)
-        return photo
+        # If the eyes overlap eachother on the x axis, the face is probably not valid.
+        if eyes[0].overlaps_x(eyes[1]):
+            return False
+        if eyes[1].overlaps_x(eyes[0]):
+            return False
+        
+        # We make sure that the eyes overlap eachother on the y axis.
+        if (not eyes[0].overlaps_y(eyes[1])) and (not eyes[1].overlaps_y(eyes[0])):
+            return False
+        return True
     
     cv_image = cv.LoadImage(image_path, 0)
     
@@ -184,6 +159,10 @@ def busitize(image_path, user=None, fb_id=None, tags=None, ignore=None, busey_co
     busitized_path = "%s_busitized%s" % os.path.splitext(image_path)
     original.save(busitized_path)
     
-    photo = Photo.objects.create(user=user, original=image_path, busitized=busitized_path, fb_id=fb_id)
+    photo = Photo.objects.create(   user=user, 
+                                    original=image_path, 
+                                    busitized=busitized_path, 
+                                    fb_id=fb_id, 
+                                    tweet_id=tweet_id)
     return photo
     
