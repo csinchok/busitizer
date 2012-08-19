@@ -47,7 +47,9 @@
 				<ul>
 					<li><a href="/">The Busitizer</a></li>
 					<li><a href="/about">About</a></li>
+					{% if user.is_authenticated %}
 					<li><a href="/my_gallery">My Photos</a></li>
+					{% endif %}
 					<li><a href="/public_gallery">Gallery</a></li>
 					{% if user.is_authenticated %}
 					<li><a href="/logout">Logout</a></li>
