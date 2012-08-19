@@ -66,14 +66,16 @@ class PhotoDetailView(DetailView):
     template_name = 'photo_detail.html'
     
 class PhotoListView(ListView):
-    
-    queryset = Photo.objects.all()
+    def get_queryset(self):
+        return Photo.objects.all()
+
     context_object_name = 'photo_list'
     template_name = 'photo_gallery.html'
     
     
 class MyPhotoListView(ListView):
+    def get_queryset(self):
+        return Photo.objects.filter(user=self.request.user)
     
-    queryset = Photo.objects.filter(user=self.request.user)
     context_object_name = 'photo_list'
     template_name = 'photo_gallery.html'

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
-from busitizer.core.views import PhotoDetailView
+from busitizer.core.views import PhotoDetailView, PhotoListView, MyPhotoListView
 
 urlpatterns = patterns('busitizer.core.views',
     url(r'^$', TemplateView.as_view(template_name="home.html"), name="home"),
