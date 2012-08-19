@@ -187,6 +187,7 @@ INSTALLED_APPS = (
     'compressor',
     'djcelery',
     'social_auth',
+    'sorl.thumbnail',
     
     'busitizer.core',
     'busitizer.twitter',

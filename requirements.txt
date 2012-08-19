@@ -31,6 +31,7 @@ python-openid==2.2.5
 python-twitpic==2.1
 requests==0.13.6
 simplejson==2.6.1
+sorl-thumbnail==11.12
 ssh==1.7.14
 tweepy==1.11
 wsgiref==0.1.2
