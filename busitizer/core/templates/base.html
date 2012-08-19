@@ -41,18 +41,20 @@
 <div id="page-wrapper">
 	<div id='fb-root'></div><script src='http://connect.facebook.net/en_US/all.js'></script>
 	<header id="header">
-		<h1 class="container"><a href="/">The Busitizer</a></h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="/">The Busitizer</a></li>
-				<li><a herf="/about">About</a></li>
-				<li><a href="#">My Photos</a></li>
-				<li><a href="#">Gallery</a></li>
-				{% if user.is_authenticated %}
-				<li><a href="#">Logout</a></li>
-				{% endif %}
-			</ul>
-		</nav>
+		<div class="container cf">
+			<h1><a href="/">The Busitizer</a></h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="/">The Busitizer</a></li>
+					<li><a herf="/about">About</a></li>
+					<li><a href="#">My Photos</a></li>
+					<li><a href="#">Gallery</a></li>
+					{% if user.is_authenticated %}
+					<li><a href="#">Logout</a></li>
+					{% endif %}
+				</ul>
+			</nav>
+		</div>
 	</header>		
 	<div id="top"></div>
 	<div id="container" class="container">
