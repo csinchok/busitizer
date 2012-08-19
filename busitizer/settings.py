@@ -187,7 +187,6 @@ INSTALLED_APPS = (
     'djcelery',
     'social_auth',
     'sorl.thumbnail',
-    'raven.contrib.django',
     
     'busitizer.core',
     'busitizer.twitter',
@@ -227,8 +226,6 @@ djcelery.setup_loader()
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ALWAYS_EAGER = False
 TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
-
-SENTRY_DSN = 'http://a9b1545adf534eaf87b1b2f51d29a269:86dbf1228e234e7faf26c0fae2137bb7@busitizer.com:9000/2'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
