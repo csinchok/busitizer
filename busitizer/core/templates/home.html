@@ -18,7 +18,7 @@
 
 		<div class="proceed">
 			{% if not user.is_anonymous %}
-				<a class="button" href="#screen-2" onclick="$.scrollTo( '#screen-2', 800, {easing:'elasout'} );return False;">Let's get started &raquo;</a>
+				<a class="button" href="#screen-2">Let's get started &raquo;</a>
 			{% else %}
 				<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
 			{% endif %}
@@ -59,7 +59,7 @@
 
 			</div>
 
-		<div class="proceed"><a class="button" href="#screen-3">Busitize me &raquo;</a></div>
+		<div class="proceed"><a class="button" href="#screen-3" onclick="busitize(function(data){console.log(data);});return false;">Busitize me &raquo;</a></div>
 	
 	</div>
 	

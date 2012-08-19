@@ -3,13 +3,23 @@ import uuid
 import json
 
 from celery import group
+from celery.result import AsyncResult
 
 from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 
 from busitizer.core.tasks import get_photos
-                                    
+      
+def poll_completion(request, task_id):
+    data = {'completed': False}
+    result = AsyncResult(task_id)
+    if result.ready():
+        data['completed'] = True
+        photo = result.result
+        data['image'] = photo.busitized.url
+    return HttpResponse(json.dumps(data), mimetype="application/json")
+                              
 def grab_photos(request):
     
     facebook_auth = request.user.social_auth.filter(provider='facebook')
@@ -22,24 +32,4 @@ def grab_photos(request):
         data = {'success': False, 'message': 'Not logged in!'}
     
     return HttpResponse(json.dumps(data), mimetype="application/json")
-    
-
-    # print(photos)
-    # 
-    # fb = get_persistent_graph(request)
-    # 
-    # photos = fb.get('me/photos')
-    # 
-    # data = photos['data']
-    # random.shuffle(data)
-    # photos = data[:settings.BUSEY_COUNT]
-    # 
-    # _uuid = uuid.uuid1()
-    # 
-    # cache.set(str(_uuid), settings.BUSEY_COUNT)
-    
-    # for photo in photos:
-        # result = download_image.apply_async((photo,), link=busitize.s(request.user, fb_id=photo['id'], tags=photo['tags']['data']))
-    
-    # return HttpResponse(json.dumps(photos), mimetype="application/json")
     

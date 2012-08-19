@@ -30,16 +30,10 @@ def get_photos(user, token=None):
     photos = photos_stream['data']
     random.shuffle(photos)
     for photo in photos:
-        result = busitize_url.delay(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'])
-        try:
-            photo = result.get(timeout=10)
-        except Exception as e:
-            print(e)
-            break
-        if photo:
-            cache.set(get_photos.request.id, True)
-            break
-        
+        result = busitize_url(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'])
+        if result:
+            return result
+    return None
 
 @celery.task
 def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, fb_ignore_tag=None, busey_count=5):
@@ -76,7 +70,6 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     # The facebook tags are specified as percentages, let's convert those to pixels.
     tags = []
     for tag in fb_tags:
-        print(tag)
         x = (tag['x']/100) * cv_image.width
         y = (tag['y']/100) * cv_image.height
         tags.append([x,y])
@@ -136,9 +129,10 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     busitized.save(busitized_path)
     
     photo = Photo.objects.create(   user=user, 
-                                    original=image_path, 
-                                    busitized=busitized_path, 
+                                    original=os.path.basename(image_path), 
+                                    busitized=os.path.basename(busitized_path), 
                                     fb_id=fb_id, 
                                     tweet_id=tweet_id)
+    print("Returning busitized photo: %s" % photo)
     return photo
     

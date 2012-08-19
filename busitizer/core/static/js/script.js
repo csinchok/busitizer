@@ -39,6 +39,35 @@ $(function() {
 		$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
 	}
 );
+
+function poll_url(url, callback) {
+	$.get(url, function(data) {
+		if(data.completed) {
+			callback(data);
+		} else {
+			setTimeout(function() {poll_url(url, callback);}, 1000);
+		}
+	});
+}
+
+function busitize(callback) {
+	$.get('/grab_photos.json', function(data) {
+		if(data.success) {
+			var url = '/poll_completion/' + data.task_id + '.json';
+			poll_url(url, callback);
+		} else {
+			alert(data.message);
+		}
+	});
+}
+
+function poll(){
+    $.ajax({ url: "server", success: function(data){
+        //Update your dashboard gauge
+        salesGauge.setValue(data.value);
+
+    }, dataType: "json", complete: poll, timeout: 30000 });
+};
 	
 function setAllSizes() {
 	var viewportWidth = $(window).width();
