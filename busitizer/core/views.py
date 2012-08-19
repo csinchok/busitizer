@@ -10,6 +10,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
@@ -63,3 +64,16 @@ class PhotoDetailView(DetailView):
     model = Photo
     context_object_name = 'photo'
     template_name = 'photo_detail.html'
+    
+class PhotoListView(ListView):
+    
+    queryset = Photo.objects.all()
+    context_object_name = 'photo_list'
+    template_name = 'photo_gallery.html'
+    
+    
+class MyPhotoListView(ListView):
+    
+    queryset = Photo.objects.filter(user=self.request.user)
+    context_object_name = 'photo_list'
+    template_name = 'photo_gallery.html'

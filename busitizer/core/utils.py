@@ -56,7 +56,21 @@ def eyes_valid(eyes):
     This method encasulates the logic to determine if a face is 'valid' given
     a set of eyes.
     """
-    if len(eyes) != 2:
+    if len(eyes) in [1,2]:
+        return True
+    else:
+        return False
+
+    # TODO: figure out if we need to below to make things strict enough.
+    if len(eyes) == 0:
+        # No eyes? sketchy.
+        return False
+    
+    if len(eyes) == 1:
+        # Eh, one eye might be good enough.
+        return True
+    
+    if len(eyes) > 2:
         # If we dont' have two eyes, it's not valid.
         return False
     
