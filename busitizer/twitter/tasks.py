@@ -73,7 +73,8 @@ def send_tweet(photo, original_tweet):
 def handle_tweet(tweet):
     """
     Handle a tweet from the twitter_stream management command, trying to get the image that the
-    user was attempting to send us, and passing that off the the busitize_url task.
+    user was attempting to send us, and passing that off the the busitize_url task. This was working
+    at one point, and I hope I didn't break it with later updates. We'll see, I guess.
     """
     tweet = json.loads(tweet)
     url = tweet['entities']['urls'][0]['expanded_url']
