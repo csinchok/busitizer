@@ -70,6 +70,9 @@ blockquote .credit a { text-decoration: underline; }
 .gallery ul { margin: -10px; padding: 0; }
 .gallery ul li { width: 163px; height: 163px; display: inline-block; padding: 10px; overflow: hidden; }
 .gallery ul li a { display: block; }
+.pagination { text-align: center; }
+.prev { margin-right: 20px; }
+.next { margin-left: 20px; }
 .proceed{font-size: 20px; line-height: 30px; display:block;padding-top:1em;text-align:right;clear:both;}
 .ui-slider{width:85%;margin:0 auto 20px auto;}
 
