@@ -69,10 +69,11 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     
     # The facebook tags are specified as percentages, let's convert those to pixels.
     tags = []
-    for tag in fb_tags:
-        x = (tag['x']/100) * cv_image.width
-        y = (tag['y']/100) * cv_image.height
-        tags.append([x,y])
+    if fb_tags:
+        for tag in fb_tags:
+            x = (tag['x']/100) * cv_image.width
+            y = (tag['y']/100) * cv_image.height
+            tags.append([x,y])
     
     # A list of the faces we've found in the image. So far, none.
     faces = []
@@ -109,7 +110,7 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
             eye = Feature(eye_frame)
             if face.contains(eye):
                 eyes_in_head.append(eye)
-        
+                
         # Given the set of eyes we found in this face, should it be considered valid?
         if eyes_valid(eyes_in_head):
             faces.append(face)
@@ -133,6 +134,5 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
                                     busitized='busitized/' + os.path.basename(busitized_path), 
                                     fb_id=fb_id, 
                                     tweet_id=tweet_id)
-    print("Returning busitized photo: %s" % photo)
     return photo
     
