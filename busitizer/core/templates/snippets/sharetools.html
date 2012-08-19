@@ -6,8 +6,11 @@
 	<h1>Tools</h1>
 	<ul class="share cf">
 		<li class="download"><a href="{{photo.busitized.url}}" target="_blank"><span></span>Download image</a></li>
-		<li class="delete"><a href="#"><span></span>Delete image</a></li>
-		<li class="facebook"><a href="#"><span></span>Share on Facebook</a></li>
+		<li class="facebook"><a href="#" class="sharefacebook" data-uri="{{photo.busitized.url}}"><span></span>Share on Facebook</a></li>
 		<li class="twitter"><a href="#"><span></span>Share on Twitter</a></li>
+		{% if user == photo.user %}
+		<li class="delete"><a href="{{photo.get_absolute_url}}/delete"><span></span>Delete image</a></li>
+		{% endif %}
+		
 	</ul>
 </aside>

@@ -1,6 +1,7 @@
 import random
 import uuid
 import json
+import os
 
 from celery import group
 from celery.result import AsyncResult
@@ -10,6 +11,8 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.template.loader import render_to_string
+from django.template import RequestContext
+from django.shortcuts import get_object_or_404, render_to_response
 
 from busitizer.core.tasks import get_photos
 from busitizer.core.models import Photo
@@ -36,6 +39,24 @@ def grab_photos(request):
         data = {'success': False, 'message': 'Not logged in!'}
     
     return HttpResponse(json.dumps(data), mimetype="application/json")
+    
+def delete_photo(request, pk):
+    photo = get_object_or_404(Photo, pk=pk)
+    if photo.user != request.user:
+        message = "You don't have permissions to delete this photo."
+    else:
+        try:
+            os.remove(photo.busitized.path)
+        except:
+            pass
+        try:
+            os.remove(photo.original.path)
+        except:
+            pass
+        photo.delete()
+        message = "Photo deleted."
+        
+    return render_to_response("delete_photo.html", context_instance=RequestContext(request, {'message': message}))
     
 class PhotoDetailView(DetailView):
 
