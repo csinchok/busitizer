@@ -23,12 +23,17 @@ from PIL import Image
 
 @celery.task
 def get_photos(user, token=None, busey_count=4):
-    if token is None:
-        token = user.social_auth.get(provider='facebook').tokens['access_token']
+    """
+    This task gets a user's facebook token and uses it to call the graph API,
+    fetching the first page of photos, and trying to busitize them.
+    """
+    
     graph = facebook.GraphAPI(token)
     photos_stream = graph.get_object("me/photos")
     photos = photos_stream['data']
     random.shuffle(photos)
+    
+    # TODO: get more than one page of photos
     for photo in photos:
         result = busitize_url(photo['source'], user=user, fb_id=photo['id'], fb_tags=photo['tags']['data'], busey_count=busey_count)
         if result:
@@ -129,6 +134,7 @@ def busitize_url(image_url, user=None, fb_id=None, tweet_id=None, fb_tags=None, 
     busitized_path = image_path.replace('/originals/', '/busitized/')
     busitized.save(busitized_path)
     
+    # Save the image, so that it'll show in the gallery.
     photo = Photo.objects.create(   user=user, 
                                     original='originals/' + os.path.basename(image_path), 
                                     busitized='busitized/' + os.path.basename(busitized_path), 
