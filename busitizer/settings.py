@@ -1,4 +1,3 @@
-from secrets import *
 
 import os
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -188,6 +187,7 @@ INSTALLED_APPS = (
     'djcelery',
     'social_auth',
     'sorl.thumbnail',
+    'raven.contrib.django',
     
     'busitizer.core',
     'busitizer.twitter',
@@ -228,6 +228,8 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_ALWAYS_EAGER = False
 TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
 
+SENTRY_DSN = 'http://a9b1545adf534eaf87b1b2f51d29a269:86dbf1228e234e7faf26c0fae2137bb7@busitizer.com:9000/2'
+
 INTERNAL_IPS = ('127.0.0.1',)
 
 TEST_IMAGES = os.path.join(SITE_ROOT, 'test_images')
@@ -245,3 +247,5 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL          = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/'
+
+from secrets import *
