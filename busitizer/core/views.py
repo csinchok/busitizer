@@ -20,8 +20,15 @@ from busitizer.core.tasks import get_photos
 from busitizer.core.models import Photo
       
 def poll_completion(request, task_id):
+    """
+    This view is polled every second, checking to see if the task is done.
+    Once it is, it rendes the HTML for the image display, and passes it along.
+    """
+    
     data = {'completed': False}
     result = AsyncResult(task_id)
+    
+    # Sometimes we get weird image and/or network errors returned
     if result.ready() and not isinstance(result.result, Exception):
         data['completed'] = True
         photo = result.result
@@ -30,6 +37,11 @@ def poll_completion(request, task_id):
     return HttpResponse(json.dumps(data), mimetype="application/json")
                               
 def grab_photos(request):
+    """
+    A view to initiate the Busitization process. This puts the task in celery, 
+    and gives the task id to javascript, which uses it to check the status of
+    the task by calling 'poll_completion'.
+    """
     
     busey_level = request.GET.get('busey_level', 4)
     
@@ -45,6 +57,10 @@ def grab_photos(request):
     return HttpResponse(json.dumps(data), mimetype="application/json")
     
 def delete_photo(request, pk):
+    """
+    View to allow a user to delete a photo, because we're nice.
+    """
+
     photo = get_object_or_404(Photo, pk=pk)
     if photo.user != request.user:
         message = "You don't have permissions to delete this photo."
