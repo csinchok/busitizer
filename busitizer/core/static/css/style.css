@@ -57,6 +57,8 @@ h1,h2,h3{font-family:'Enriqueta';}
 .finished .share li.facebook a span {background-position: 0 -16px;}
 .finished .share li.twitter a span {background-position: 0 0;}
 .finished .share li.delete a span {background-position: 0 -48px;}
+.finished .share li.busitize a { color: #ffea00; }
+.finished .share li.busitize a span {background-position: 0 -64px;}
 .finished .busitized{float: left; display: block; width:600px;background:rgba(0,0,0,0.2); padding:10px 0;}
 .finished .busitized img{margin: 0 auto;display: block;}
 .proceed{display:block;padding-top:1em;text-align:right;clear:both;}
