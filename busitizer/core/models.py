@@ -12,3 +12,6 @@ class Photo(models.Model):
     source = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(default=datetime.datetime.now())
+
+    class Meta:
+        ordering = ['-created',]
