@@ -76,10 +76,29 @@ function setAllSizes() {
 	$('#content .section:first-child').width( sum ); //Set content area scroller to sum of width of sections
 }
 
+function share(picture) {
+    // calling the API ...
+    var obj = {
+      method: 'feed',
+      link: 'https://developers.facebook.com/docs/reference/dialogs/',
+      picture: picture,
+      name: 'Gary Busey',
+      caption: 'Get a little Busey in your life',
+      description: 'TODO'
+    };
+
+    FB.ui(obj, function(){});
+}
+
 
 $(document).ready(function() {
 	setAllSizes();
 	$(window).resize(function() {
 		setAllSizes();
 	});
+	
+    $(".sharefacebook").click(function(){
+    	var url = $(this).attr('data-uri');
+		share(url);
+    });
  });
