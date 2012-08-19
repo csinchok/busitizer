@@ -12,7 +12,7 @@
 	<meta name="author" content="">
 
 	<meta name="viewport" content="width=device-width">
-
+	<link href="http://fonts.googleapis.com/css?family=Rammetto+One|Carter+One|Enriqueta|Open+Sans:400,700" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/busitizer/jquery-ui-1.8.23.custom.css">
@@ -24,18 +24,23 @@
 
 </head>
 <body>
-<div class="container" id="header">
-	<header>
-		<h1>The Busitizer</h1>
+<div id="page-wrapper">
+
+	<header id="header">
+		<h1 class="container">The Busitizer</h1>
 	</header>
-</div>
-<div id="container" class="container">
-	<div role="main" id="content">
-		<div class="section cf">
-			{% block body %}
-			{% endblock %}
+		
+	<div id="top"></div>
+	
+	<div id="container" class="container">
+		<div role="main" id="content">
+			<div class="section cf">
+				{% block body %}
+				{% endblock %}
+			</div>
 		</div>
 	</div>
+	
 </div>
 </body>
 </html>
