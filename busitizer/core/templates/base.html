@@ -34,6 +34,7 @@
 </head>
 <body>
 <div id="page-wrapper">
+	<div id='fb-root'></div><script src='http://connect.facebook.net/en_US/all.js'></script>
 	<header id="header">
 		<h1 class="container"><a href="/">The Busitizer</a></h1>
 	</header>		
@@ -47,6 +48,29 @@
 		</div>
 	</div>	
 </div>
+<script type="text/javascript">
+    FB.init({appId: "279859382115909", status: true, cookie: true});
+	function share(picture) {
+	    // calling the API ...
+	    var obj = {
+	      method: 'feed',
+	      link: 'https://developers.facebook.com/docs/reference/dialogs/',
+	      picture: picture,
+	      name: 'Gary Busey',
+	      caption: 'Get a little Busey in your life',
+	      description: 'TODO'
+	    };
+
+	    FB.ui(obj, function(){});
+	}
+	
+	$(function(){
+	    $(".sharefacebook").click(function(){
+	    	var url = $(this).attr('data-uri');
+			share(url);
+	    });
+	});
+</script>
 </body>
 </html>
 	
