@@ -9,7 +9,7 @@
 			
             {% for photo in photo_list %}
                 <li>
-                	{% thumbnail photo.busitized "168" upscale=False as im %}
+                	{% thumbnail photo.busitized "170" upscale=False as im %}
                 	<a href="{{ photo.get_absolute_url }}"><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" /></a>
 					{% endthumbnail %}
                 </li>
