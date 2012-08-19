@@ -40,6 +40,7 @@ function poll_url(url, timeout) {
 			if(data.completed) {
 				$('#screen-4 .inner').html(data.html);
 				$('#content').stop().scrollTo('#screen-4', 400);
+				window.history.pushState("", "Busitized Photo", data.url);
 			} else {
 				setTimeout(function() {poll_url(url, timeout - 1);}, 1000);
 			}

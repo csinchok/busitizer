@@ -21,6 +21,7 @@ def poll_completion(request, task_id):
         data['completed'] = True
         photo = result.result
         data['html'] = render_to_string('snippets/photo.html', {'photo': photo})
+        data['url'] = photo.get_absolute_url()
     return HttpResponse(json.dumps(data), mimetype="application/json")
                               
 def grab_photos(request):
