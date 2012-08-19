@@ -25,11 +25,12 @@ def generate_reports():
         with settings(warn_only=True):
             run('pylint --rcfile=.pylintrc busitizer > %s/webroot/pylint.html' % env.projectroot)
 
-def wipe_images():
+def wipe_photos():
     with virtualenv():
         with settings(warn_only=True):
             run('rm webroot/media/busitized/*')
             run('rm webroot/media/originals/*')
+            run('DJANGO_SETTINGS_MODULE=busitizer.production python manage.py wipe_photos')
 
 def deploy():
     rsync_project(env.webroot, delete=True, exclude=['.env', '*.db', '*.pyc', '.git', '.coverage', 'test_images', 'busitizer/webroot/static', 'busitizer/webroot/media'])
