@@ -14,7 +14,7 @@ class Photo(models.Model):
     created = models.DateTimeField(default=datetime.datetime.now)
 
     class Meta:
-        ordering = ['-created',]
+        ordering = ['-created','-id']
         
     def get_absolute_url(self):
         return '/photo/%s' % self.id
