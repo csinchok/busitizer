@@ -245,4 +245,7 @@ LOGIN_URL          = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/'
 
+THUMBNAIL_DUMMY = True
+THUMBNAIL_DUMMY_SOURCE = 'http://placehold.it/%(width)sx%(height)s'
+
 from secrets import *
