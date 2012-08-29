@@ -26,4 +26,8 @@ CACHES = {
     }
 }
 
+MEDIA_URL = 'http://static.busitizer.com/media/'
+
+STATIC_URL = 'http://static.busitizer.com/static/'
+
 CELERY_ALWAYS_EAGER = False
