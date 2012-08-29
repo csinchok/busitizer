@@ -11,10 +11,10 @@ class Photo(models.Model):
     tweet_id = models.BigIntegerField(null=True, blank=True)
     source = models.URLField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    created = models.DateTimeField(default=datetime.datetime.now())
+    created = models.DateTimeField(default=datetime.datetime.now)
 
     class Meta:
-        ordering = ['-created',]
+        ordering = ['-created','-id']
         
     def get_absolute_url(self):
         return '/photo/%s' % self.id

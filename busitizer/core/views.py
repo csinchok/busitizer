@@ -89,9 +89,8 @@ class PhotoDetailView(DetailView):
     template_name = 'photo_detail.html'
     
 class PhotoListView(ListView):
-    def get_queryset(self):
-        return Photo.objects.all()
 
+    model = Photo
     context_object_name = 'photo_list'
     template_name = 'photo_gallery.html'
     paginate_by = 10
