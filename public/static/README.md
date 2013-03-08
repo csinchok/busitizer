@@ -1,0 +1,1 @@
+Static filez are synced here.

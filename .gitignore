@@ -6,4 +6,9 @@ webroot/media
 test_images/*
 *.db
 .coverage
-secrets.py
+
+# Directories for logs, media files, etc.
+public/static/*
+!public/static/README*
+public/media/*
+!media/media/README*
