@@ -39,6 +39,13 @@ user "busitizer" do
   system true
 end
 
+directory "/var/log/busitizer" do
+	owner "busitizer"
+	group "busitizer"
+	mode 00744
+	action :create
+end
+
 directory "/var/venv" do
 	owner "busitizer"
 	group "www-data"
@@ -68,6 +75,10 @@ end
 package "libmemcached-dev" do
 	action :install
 end
+package "nginx" do
+	action :install
+end
+
 
 execute "install_requirements" do
 	cwd "/www/busitizer"
@@ -83,4 +94,35 @@ execute "sync_db" do
 	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
 	command "/var/venv/bin/python manage.py syncdb --noinput"
 	user "busitizer"
+end
+
+execute "start_supervisor" do 
+	not_if "/var/venv/bin/supervisorctl status", :user => "busitizer", :cwd => "/www/busitizer"
+	cwd "/www/busitizer"
+	path ["/var/venv/bin"]
+	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
+	command "/var/venv/bin/supervisord"
+	user "busitizer"
+end
+
+execute "restart_supervisor" do 
+	only_if "/var/venv/bin/supervisorctl status", :user => "busitizer", :cwd => "/www/busitizer"
+	cwd "/www/busitizer"
+	path ["/var/venv/bin"]
+	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
+	command "/var/venv/bin/supervisorctl restart all"
+	user "busitizer"
+end
+
+service "nginx"
+template "/etc/nginx/sites-available/busitizer" do
+  source "nginx.erb"
+  variables({
+     :server_name => "*.busitizer.com",
+  })
+end
+
+link "/etc/nginx/sites-enabled/busitizer" do
+  to "/etc/nginx/sites-available/busitizer"
+  notifies :restart, "service[nginx]"
 end
