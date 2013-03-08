@@ -1,0 +1,15 @@
+{
+	"name": "web",
+	"chef_type": "role",
+	"json_class": "Chef::Role",
+	"description": "A busitizer web server",
+	"run_list": [
+		"recipe[apt]",
+		"recipe[build-essential]",
+		"recipe[git]",
+		"recipe[python]",
+		"recipe[opencv]",
+		"recipe[postgresql::server]",
+		"recipe[busitizer]"
+	]
+}

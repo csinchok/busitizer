@@ -1,20 +1,25 @@
 import datetime
+from urllib import urlencode
 
 from django.db import models
-from django.contrib.auth.models import User
 
-class Photo(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True)
-    original = models.ImageField(upload_to='originals')
-    busitized = models.ImageField(upload_to='busitized')
-    fb_id = models.BigIntegerField(null=True, blank=True)
-    tweet_id = models.BigIntegerField(null=True, blank=True)
-    source = models.URLField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+class Image(models.Model):
+
+    PENDING = 202
+    FAILED = 204
+    COMPLETED = 200
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (FAILED, 'Failed'),
+        (COMPLETED, 'Completed')
+    )
+
+    url = models.URLField()
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
     created = models.DateTimeField(default=datetime.datetime.now)
 
-    class Meta:
-        ordering = ['-created','-id']
-        
+    def __unicode__(self):
+        return self.url
+
     def get_absolute_url(self):
-        return '/photo/%s' % self.id
+        return "/busitize?url=%s" % urlencode(self.url)
