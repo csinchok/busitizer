@@ -10,6 +10,30 @@
 include_recipe "database"
 include_recipe "python"
 
+postgresql_connection_info = {:host => "127.0.0.1",
+                              :port => node['postgresql']['config']['port'],
+                              :username => 'postgres',
+                              :password => node['postgresql']['password']['postgres']}
+
+postgresql_database 'busitizer' do
+  connection postgresql_connection_info
+  action :create
+end
+
+postgresql_database_user 'busitizer' do
+  connection postgresql_connection_info
+  password 'hobbits'
+  action :create
+end
+
+postgresql_database_user 'busitizer' do
+  connection postgresql_connection_info
+  database_name 'busitizer'
+  privileges [:all]
+  action :grant
+end
+
+
 user "busitizer" do
   action :create
   system true
@@ -29,9 +53,21 @@ python_virtualenv "/var/venv" do
   group "www-data"
 end
 
-package "libpq-dev"
-package "libjpeg-dev"
-package "libpng12-dev"
+package "libpq-dev"do
+	action :install
+end
+package "libjpeg-dev"do
+	action :install
+end
+package "libpng12-dev"do
+	action :install
+end
+package "memcached" do
+	action :install
+end
+package "libmemcached-dev" do
+	action :install
+end
 
 execute "install_requirements" do
 	cwd "/www/busitizer"
@@ -41,10 +77,10 @@ execute "install_requirements" do
 	user "busitizer"
 end
 
-# execute "sync_db" do
-# 	cwd "/www/busitizer"
-# 	path ["/var/venv/bin"]
-# 	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
-# 	command "/var/venv/bin/python manage.py syncdb"
-# 	user "busitizer"
-# end
+execute "sync_db" do
+	cwd "/www/busitizer"
+	path ["/var/venv/bin"]
+	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
+	command "/var/venv/bin/python manage.py syncdb --noinput"
+	user "busitizer"
+end

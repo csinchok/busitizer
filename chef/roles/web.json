@@ -3,6 +3,17 @@
 	"chef_type": "role",
 	"json_class": "Chef::Role",
 	"description": "A busitizer web server",
+	"default_attributes": {
+    	"postgresql": {
+		    "pg_hba": [{
+		        "type": "host",
+		        "db": "busitizer",
+		        "user": "busitizer",
+		        "addr": "127.0.0.1/32",
+		        "method": "md5"
+		    }]
+    	}
+  	},
 	"run_list": [
 		"recipe[apt]",
 		"recipe[build-essential]",
@@ -10,6 +21,7 @@
 		"recipe[python]",
 		"recipe[opencv]",
 		"recipe[postgresql::server]",
+		"recipe[database::postgresql]",
 		"recipe[busitizer]"
 	]
 }

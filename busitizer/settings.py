@@ -13,18 +13,18 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'busitizer',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'busitizer',
+        'USER': 'busitizer',
+        'PASSWORD': 'hobbits',
+        'HOST': '',
+        'PORT': ''
     }
 }
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }
@@ -232,4 +232,3 @@ LOGIN_ERROR_URL    = '/'
 THUMBNAIL_DUMMY = True
 THUMBNAIL_DUMMY_SOURCE = 'http://placehold.it/%(width)sx%(height)s'
 
-from secrets import *

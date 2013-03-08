@@ -8,3 +8,4 @@ supervisor==3.0b1
 psycopg2==2.4.6
 django_compressor==1.2
 South==0.7.6
+pylibmc==1.2.3
