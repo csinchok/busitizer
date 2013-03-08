@@ -11,26 +11,8 @@ There's also a twitter bot component (the original inspiration of busitizer), al
 
 *Development setup*
 
-If you want to run EVERYTHING locally, you'll want to do these, but the compilation will take a while:
-
-    > brew install rabbitmq
-    > brew install opencv
-	
-OpenCV is a problem, because there's not a good install on Debian for it. I was able to get it compiled and in the virtualenv, and if you're interested in how that happened, check the server_setup.md file in this directory.
-
-With or without those steps, you can get startd with this:
-
     > git clone git@github.com:csinchok/busitizer.git
-	> cd busitizer
-	> virtualenv .env
-	> source .env/bin/activate
-	> pip install -r requirements.txt
-	> python manage.py syncdb
-	> python manage.py migrate
-	> python mange.py runserver
+    > cd busitizer
+    > vagrant up
 
-We had great plans of coverage reports, unit tests, etc. These plans did not go great.	
-
-Coverage reports are here: http://busitizer.com/coverage/index.html
-
-Pylint reports are here: http://busitizer.com/pylint.html
+That should be it!
