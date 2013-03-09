@@ -17,7 +17,7 @@ class Image(models.Model):
     url = models.URLField()
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
     created = models.DateTimeField(default=datetime.datetime.now)
-    busitized = models.ImageField(upload_to='buseys')
+    busitized = models.ImageField(upload_to='busitized')
 
     def __unicode__(self):
         return self.url
