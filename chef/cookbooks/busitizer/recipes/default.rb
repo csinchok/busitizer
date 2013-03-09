@@ -42,14 +42,21 @@ end
 directory "/var/log/busitizer" do
 	owner "busitizer"
 	group "busitizer"
-	mode 00744
+	mode 00755
+	action :create
+end
+
+directory "/var/log/busitizer/supervisor" do
+	owner "busitizer"
+	group "busitizer"
+	mode 00755
 	action :create
 end
 
 directory "/var/venv" do
 	owner "busitizer"
 	group "www-data"
-	mode 00744
+	mode 00755
 	action :create
 end
 
@@ -96,21 +103,21 @@ execute "sync_db" do
 	user "busitizer"
 end
 
-execute "start_supervisor" do 
-	not_if "/var/venv/bin/supervisorctl status", :user => "busitizer", :cwd => "/www/busitizer"
-	cwd "/www/busitizer"
-	path ["/var/venv/bin"]
-	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
-	command "/var/venv/bin/supervisord"
-	user "busitizer"
-end
-
 execute "restart_supervisor" do 
-	only_if "/var/venv/bin/supervisorctl status", :user => "busitizer", :cwd => "/www/busitizer"
+	only_if "pgrep supervisor", :user => "busitizer", :cwd => "/www/busitizer"
 	cwd "/www/busitizer"
 	path ["/var/venv/bin"]
 	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
 	command "/var/venv/bin/supervisorctl restart all"
+	user "busitizer"
+end
+
+execute "start_supervisor" do 
+	not_if "pgrep supervisor", :user => "busitizer", :cwd => "/www/busitizer"
+	cwd "/www/busitizer"
+	path ["/var/venv/bin"]
+	environment ({'VIRTUAL_ENV' => '/var/venv', 'HOME' => '/tmp/.pip'})
+	command "/var/venv/bin/supervisord"
 	user "busitizer"
 end
 

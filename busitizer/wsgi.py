@@ -14,8 +14,16 @@ framework.
 
 """
 import os
+import uwsgi
+from uwsgidecorators import timer
+from django.utils import autoreload
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "busitizer.settings")
+
+@timer(3)
+def change_code_gracefull_reload(sig):
+    if autoreload.code_changed():
+        uwsgi.reload()
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

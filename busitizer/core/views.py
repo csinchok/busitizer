@@ -14,9 +14,8 @@ from django.views.generic.list import ListView
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render
-from django.contrib.auth import logout
 
-from busitizer.core.tasks import get_photos
+from busitizer.core.tasks import busitize_image
 from busitizer.core.models import Image
 
 
@@ -28,10 +27,19 @@ def busitize(request):
     image, created = Image.objects.get_or_create(url=url)
 
     if created:
-        response_code = 201
+        status_code = 201
+        busitize_task.delay(image.id)
     else:
-        response_code = image.status
+        status_code = image.status
 
-    # TODO: test accept header
+    response_data = {
+        'status': image.status,
+        'url': url
+    }
+    if image.status == Image.COMPLETED:
+        response_data['busitized'] = image.busitized.url()
 
-    return render(request, "busitize.html", {'image': image}, status=response_code)
+    if request.META.get('HTTP_ACCEPT_ENCODING') == "text/json":
+        return HttpResponse(json.dumps(response_data), "text/json", status_code=status_code)
+
+    return render(request, "busitize.html", response_data, status=status_code)

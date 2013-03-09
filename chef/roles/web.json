@@ -22,6 +22,7 @@
 		"recipe[opencv]",
 		"recipe[postgresql::server]",
 		"recipe[database::postgresql]",
+		"recipe[rabbitmq]",
 		"recipe[busitizer]"
 	]
 }

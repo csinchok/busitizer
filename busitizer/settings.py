@@ -176,9 +176,10 @@ INSTALLED_APPS = (
     
     'south',
     'compressor',
+    'djcelery',
     
     'busitizer.core',
-    'busitizer.twitter',
+#    'busitizer.twitter',
 )
 
 # A sample logging configuration. The only tangible logging

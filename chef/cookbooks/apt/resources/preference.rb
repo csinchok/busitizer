@@ -25,6 +25,5 @@ def initialize(*args)
 end
 
 attribute :package_name, :kind_of => String, :name_attribute => true
-attribute :glob, :kind_of => String
 attribute :pin, :kind_of => String
 attribute :pin_priority, :kind_of => String
