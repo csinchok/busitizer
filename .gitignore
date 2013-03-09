@@ -12,3 +12,4 @@ public/static/*
 !public/static/README*
 public/media/*
 !media/media/README*
+!media/media/originals/README*

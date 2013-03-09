@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render
 
-from busitizer.core.tasks import busitize_image
+from busitizer.core.tasks import busitize as busitize_task
 from busitizer.core.models import Image
 
 
@@ -33,11 +33,11 @@ def busitize(request):
         status_code = image.status
 
     response_data = {
-        'status': image.status,
+        'status': status_code,
         'url': url
     }
     if image.status == Image.COMPLETED:
-        response_data['busitized'] = image.busitized.url()
+        response_data['busitized'] = image.busitized.url
 
     if request.META.get('HTTP_ACCEPT_ENCODING') == "text/json":
         return HttpResponse(json.dumps(response_data), "text/json", status_code=status_code)

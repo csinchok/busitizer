@@ -71,7 +71,7 @@ def eyes_valid(eyes):
         return True
     
     if len(eyes) > 2:
-        # If we dont' have two eyes, it's not valid.
+        # If we have more than two eyes, it's not valid.
         return False
     
     # If the eyes overlap eachother on the x axis, the face is probably not valid.
