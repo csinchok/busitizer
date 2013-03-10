@@ -86,43 +86,20 @@ SECRET_KEY = '%vjmya4)rc5&amp;*%ee%x#)3p&amp;=#tori(a1)42)j4(cq6+bj#x(=!'
 
 #########################################
 #
-# Facebook Stuff
-#
-#########################################
-
-AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
-
-
-#########################################
-#
 # Registration Stuff
 #
 #########################################
 
-ACCOUNT_ACTIVATION_DAYS=7
-
 AUTHENTICATION_BACKENDS = (
-    'django_facebook.auth_backends.FacebookBackend',
-    'userena.backends.UserenaAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_REGISTRATION_BACKEND = 'django_facebook.registration_backends.UserenaBackend'
-
-USERENA_ACTIVATION_REQUIRED = False
-
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
-
-LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
-LOGIN_URL = '/accounts/signin/'
-LOGOUT_URL = '/accounts/signout/'
-ANONYMOUS_USER_ID = 1
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'busitizer@gmail.com'
-
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

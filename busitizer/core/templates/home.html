@@ -1,101 +1,12 @@
-{% extends "base.html" %}
-{% block body %}
-
-<section class="sub welcome" id="screen-1">
-	<div class="inner cf">
-
-		<img class="busey" src="{{ STATIC_URL }}img/buseyface.png" alt="Gary Busey, of course." align="right" />
-		
-		<h1 class="hidden">Welcome</h1>
-		
-		<p class="tagline"><strong>The Busitizer</strong> applies star of stage and 
-			screen Gary Busey to your very own Facebook photos. </p>
-		
-		<p>Connect your Facebook profile and let <strong>The Busitizer</strong> 
-			discover which of your memories best deserves a little more Gary Busey.</p>
-			
-		<p>
-				{% if not user.is_anonymous %}
-					<a class="button" href="#screen-2">Let's get started &raquo;</a>
-				{% else %}
-					<a class="button" href="/login/facebook/">Login with Facebook &raquo;</a>
-				{% endif %}</p>
-				
-		<p class="small"><strong>Note:</strong> Busitized photos will automatically appear in the <a href="/public_gallery">public gallery</a> unless you delete them from your personal gallery.</p>
-
-	
-	</div>
-</section>
-
-<section class="sub settings" id="screen-2">
-	
-	<div class="inner">
-		
-		<h1 class="hidden">Settings</h1>
-
-		<div class="mood cf">
-
-			<ul class="levels cf">
-				<li class="happy"><span class="image"></span><span>Chaotic happy</span></li>
-				<li class="neutral"><span class="image"></span><span>Chaotic neutral</span></li>
-				<li class="angry"><span class="image"></span><span>Chaotic angry</span></li>
-			</ul>
-			
-			<div id="busey-mood"></div>
-	
-		</div>
-
-		<div class="intensity cf">
-
-				<div class="levels triangle"></div>
-
-				<ul class="levels cf">
-					<li class="low"><span>Minimum Busey</span></li>
-					<li class="medium"><span>Medium Busey</span></li>
-					<li class="max"><span>Maximum Busey</span></li>
-				</ul>
-
-				<div id="busey-level"></div>
-
-			</div>
-
-		<div class="proceed"><a class="button" href="#screen-3" onclick="busitize();return false;">Busitize me &raquo;</a></div>
-	
-	</div>
-	
-</section>
-
-<section class="sub in-progress" id="screen-3">
-	<div class="inner">
-		
-		<h1>Busitization in progress...</h1>
-		
-		<img src="{{ STATIC_URL }}img/busitizing.gif" alt="Busitizing...">
-		
-		<div class="proceed">
-			<a class="button" href="#screen-4">See creation &raquo;</a>
-		</div>
-	
-	</div>
-</section>
-
-<section class="sub finished" id="screen-4">
-	<div class="inner cf">
-		
-		<div class="busitized"><img src="http://www.placekitten.com/500/300" width="500" /></div>
-		
-		<ul class="share cf">
-			<li class="download"><a href="#"><span></span>Download image</a></li>
-			<li class="delete"><a href="#"><span></span>Delete image</a></li>
-			<li class="facebook"><a href="#"><span></span>Share on Facebook</a></li>
-			<li class="twitter"><a href="#"><span></span>Share on Twitter</a></li>
-		</ul>
-	
-		<div class="proceed">
-			<a class="button" href="#screen-2" onclick="window.history.pushState('', 'Busitizer', '/');">Busitize another photo?</a>
-		</div>
-		
-	</div>
-</section>
-
-{% endblock %}
+<html>
+	<head>
+		<title>The Busitizer</title>
+		<script src="{{ STATIC_URL }}js/jquery-1.8.0.min.js"></script>
+	</head>
+	<body>
+		<form action="/busitize" method="get">
+			<label>Image to busitize:</label>
+			<input type="text" name="url" size="100" />
+		</form>
+	</body>
+</html>

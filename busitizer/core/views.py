@@ -29,11 +29,14 @@ def busitize(request):
     if created:
         status_code = 201
         busitize_task.delay(image.id)
+        status_text = "Created"
     else:
         status_code = image.status
+        status_text = image.get_status_display()
 
     response_data = {
-        'status': status_code,
+        'status_code': status_code,
+        'status_text': status_text,
         'url': url
     }
     if image.status == Image.COMPLETED:

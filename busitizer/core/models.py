@@ -6,7 +6,7 @@ from django.db import models
 class Image(models.Model):
 
     PENDING = 202
-    FAILED = 204
+    FAILED = 404
     COMPLETED = 200
     STATUS_CHOICES = (
         (PENDING, 'Pending'),
@@ -23,4 +23,4 @@ class Image(models.Model):
         return self.url
 
     def get_absolute_url(self):
-        return "/busitize?url=%s" % urlencode(self.url)
+        return "/busitize?%s" % urlencode({'url': self.url})
