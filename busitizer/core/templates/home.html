@@ -8,5 +8,9 @@
 			<label>Image to busitize:</label>
 			<input type="text" name="url" size="100" />
 		</form>
+		<p>
+			Here's a bookmarklet:
+			<a href="javascript:(function()%7Bfunction%20callback()%7B(function(%24)%7Bvar%20jQuery%3D%24%3Bvar%20busitizer_server%20%3D%20%22http%3A%2F%2Flocalhost%3A9090%22%3Bfunction%20busitize(el)%7Bvar%20url%20%3D%20el.getAttribute('src')%3Bif%20(url%20%3D%3D%3D%20null%20%7C%7C%20url%20%3D%3D%3D%20'')%20%7Breturn%3B%7D%24.ajax(busitizer_server%20%2B%20'%2Fbusitize'%2C%20%7BdataType%3A%20%22json%22%2Cdata%3A%20%7Burl%3A%20url%7D%2CstatusCode%3A%20%7B201%3A%20function()%7BsetInterval(function()%7Bbusitize(el)%3B%7D%2C%201000)%3B%7D%2C202%3A%20function()%7BsetInterval(function()%7Bbusitize(el)%3B%7D%2C%201000)%3B%7D%2C200%3A%20function(data)%20%7Bel.setAttribute('src'%2C%20'http%3A%2F%2Flocalhost%3A9090%2F'%20%2B%20data%5B'busitized'%5D)%3B%7D%7D%7D)%7D%24('img').each(function(index%2C%20el)%7Bbusitize(el)%3B%7D)%7D)(jQuery.noConflict(true))%7Dvar%20s%3Ddocument.createElement(%22script%22)%3Bs.src%3D%22https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fjquery%2F1.7.1%2Fjquery.min.js%22%3Bif(s.addEventListener)%7Bs.addEventListener(%22load%22%2Ccallback%2Cfalse)%7Delse%20if(s.readyState)%7Bs.onreadystatechange%3Dcallback%7Ddocument.body.appendChild(s)%3B%7D)()" title="">Busitize!</a>
+		</p>
 	</body>
 </html>

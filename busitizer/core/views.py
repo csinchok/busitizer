@@ -2,6 +2,7 @@ import random
 import uuid
 import json
 import os
+import logging
 
 from celery import group
 from celery.result import AsyncResult
@@ -18,6 +19,7 @@ from django.shortcuts import get_object_or_404, render
 from busitizer.core.tasks import busitize as busitize_task
 from busitizer.core.models import Image
 
+logger = logging.getLogger('busitizer')
 
 def busitize(request):
     if 'url' not in request.GET:
@@ -29,7 +31,7 @@ def busitize(request):
     if created:
         status_code = 201
         busitize_task.delay(image.id)
-        status_text = "Created"
+        status_text = "Initiated"
     else:
         status_code = image.status
         status_text = image.get_status_display()
@@ -42,7 +44,11 @@ def busitize(request):
     if image.status == Image.COMPLETED:
         response_data['busitized'] = image.busitized.url
 
-    if request.META.get('HTTP_ACCEPT_ENCODING') == "text/json":
-        return HttpResponse(json.dumps(response_data), "text/json", status_code=status_code)
+    logger.debug(request.META.get('HTTP_ACCEPT'))
+
+    if "application/json" in request.META.get('HTTP_ACCEPT', ''):
+        response = HttpResponse(json.dumps(response_data), "application/json", status=status_code)
+        response['Access-Control-Allow-Origin'] = "*"
+        return response
 
     return render(request, "busitize.html", response_data, status=status_code)

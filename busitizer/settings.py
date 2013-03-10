@@ -167,17 +167,28 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
-        }
+        },
     },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'file':{
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'simple',
+            'filename': '/var/log/busitizer/django.log',
+        },
     },
     'loggers': {
         'django.request': {
@@ -185,6 +196,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'busitizer': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        }
     }
 }
 
