@@ -1,65 +1,31 @@
-$(function() {
-
-	$.localScroll.defaults.axis = 'xy';
-
-	$.localScroll({
-		lazy:true,
-		target: '#content',
-		queue:true,
-		duration:400,
-		hash:false,
-		onBefore:function( e, anchor, $target ){
-			// The 'this' is the settings object, can be modified
-		},
-		onAfter:function( anchor, settings ){
-			// The 'this' contains the scrolled element (#content)
-		}
-	});
-});
-
-$(function() {
-		$( "a.button" ).button();
-		$( "#busey-level, #busey-mood" ).slider({
-			value: 4,
-			min: 1,
-			max: 7,
-			step: 3,
-			slide: function( event, ui ) {
-				$( "#amount" ).val( "$" + ui.value );
-			}
-		});
-		$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
-	}
-);
-
 function poll_url(url, timeout) {
-	$.get(url, function(data) {
-		if(timeout <= 0) {
-			$('#content').stop().scrollTo('#screen-1', 400);
-			alert("I guess you're just not cool enough to get busitized.");
-		} else {
-			if(data.completed) {
-				$('#screen-4 .inner').html(data.html);
-				$('#content').stop().scrollTo('#screen-4', 400);
-				window.history.pushState("", "Busitized Photo", data.url);
-			} else {
-				setTimeout(function() {poll_url(url, timeout - 1);}, 1000);
-			}
-		}
-	});
+    $.get(url, function(data) {
+        if(timeout <= 0) {
+            $('#content').stop().scrollTo('#screen-1', 400);
+            alert("I guess you're just not cool enough to get busitized.");
+        } else {
+            if(data.completed) {
+                $('#screen-4 .inner').html(data.html);
+                $('#content').stop().scrollTo('#screen-4', 400);
+                window.history.pushState("", "Busitized Photo", data.url);
+            } else {
+                setTimeout(function() {poll_url(url, timeout - 1);}, 1000);
+            }
+        }
+    });
 }
 
 function busitize() {
-	var val = $("#busey-level").slider("value");
-	
-	$.get('/grab_photos.json?busey_level=' + val, function(data) {
-		if(data.success) {
-			var url = '/poll_completion/' + data.task_id + '.json';
-			poll_url(url, 20);
-		} else {
-			alert(data.message);
-		}
-	});
+    var val = $("#busey-level").slider("value");
+    
+    $.get('/grab_photos.json?busey_level=' + val, function(data) {
+        if(data.success) {
+            var url = '/poll_completion/' + data.task_id + '.json';
+            poll_url(url, 20);
+        } else {
+            alert(data.message);
+        }
+    });
 }
 
 function poll(){
@@ -69,15 +35,6 @@ function poll(){
 
     }, dataType: "json", complete: poll, timeout: 30000 });
 };
-	
-function setAllSizes() {
-	var viewportWidth = $(window).width();
-	var contentWidth = $("#content").width()
-	var sum = 0;
-	$('#content .sub').css("width",contentWidth); // Set widths of sections to main area width 
-	$('#content .sub').each( function(){ sum += $(this).width(); }); // Find sum of widths of sections
-	$('#content .section:first-child').width( sum ); //Set content area scroller to sum of width of sections
-}
 
 function share(picture) {
     // calling the API ...
@@ -95,17 +52,9 @@ function share(picture) {
 
 
 $(document).ready(function() {
-	$("#screen-2").show();
-	$("#screen-3").show();
-	$("#screen-4").show();
-	
-	setAllSizes();
-	$(window).resize(function() {
-		setAllSizes();
-	});
-	
+    
     $(".sharefacebook").click(function(){
-    	var url = $(this).attr('data-uri');
-		share(url);
+        var url = $(this).attr('data-uri');
+        share(url);
     });
  });
