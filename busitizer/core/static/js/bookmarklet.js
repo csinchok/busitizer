@@ -1,11 +1,12 @@
 // We're gonna need jquery, though.
-var busitizer_server = "http://localhost:9090";
+var busitizer_server = "http://localhost:9090/";
 function busitize(el){
 	var url = el.getAttribute('src');
 	if (url === null || url === '') {
 		return;
 	}
-	$.ajax(busitizer_server + '/busitize', {
+	el.style.opacity = 0.75;
+	$.ajax(busitizer_server + 'busitize', {
 		dataType: "json",
 		data: {
 			url: url
@@ -14,15 +15,19 @@ function busitize(el){
 			201: function(){
 	    		setInterval(function(){
 	    			busitize(el);
-	    		}, 1000);
+	    		}, 3000);
    			},
 			202: function(){
 	    		setInterval(function(){
 	    			busitize(el);
-	    		}, 1000);
+	    		}, 3000);
 			},
 			200: function(data) {
-				el.setAttribute('src', 'http://localhost:9090/' + data['busitized']);
+				el.setAttribute('src', busitizer_server + data['busitized']);
+				el.style.opacity = 1.0;
+			},
+			404: function(){
+				el.style.opacity = 1.0;
 			}
 		}
 	})

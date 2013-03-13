@@ -16,7 +16,7 @@ from busitizer.core.models import Image
 from busitizer.core.utils import Feature, eyes_valid, busitize_image
 
 from cv2 import cv
-FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_default.xml"))
+FACE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_frontalface_alt.xml"))
 EYE_HC = cv.Load(os.path.join(settings.HAAR_CASCADES, "haarcascade_eye.xml"))
 
 def on_failure(self, exc, task_id, args, kwargs, einfo):

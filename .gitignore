@@ -11,5 +11,5 @@ test_images/*
 public/static/*
 !public/static/README*
 public/media/*
-!media/media/README*
-!media/media/originals/README*
+!public/media/README*
+!public/media/originals/README*
