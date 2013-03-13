@@ -1,10 +1,7 @@
-<html>
-<head>
-	<title>Busitization {{ status_text }}</title>
-</head>
-<body>
-	<p>URL: {{ url }}</p>
-	<p>STATUS: {{ status_text }}</p>
-	<img src="{{ busitized }}" />
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Busitization in progress - {% endblock %}
+{% block content %}
+    <p>URL: {{ url }}</p>
+    <p>STATUS: {{ status_text }}</p>
+    <img src="{{ busitized }}" />
+{% endblock content %}
