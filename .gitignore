@@ -6,6 +6,7 @@ webroot/media
 test_images/*
 *.db
 .coverage
+.vagrant
 
 # Directories for logs, media files, etc.
 public/static/*
